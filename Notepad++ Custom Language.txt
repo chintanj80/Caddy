@@ -1,0 +1,53 @@
+Keywords Lists
+
+1st group (Bold; green (0, 128, 0))
+handle_path
+handle
+reverse_proxy
+root
+file_server
+browse
+path
+header_up
+header_down
+encode gzip
+log
+tls internal
+redir
+@api
+host
+output
+file
+format
+filter
+append
+
+
+2nd group (Prefix mode; Bold; dark green (0, 64, 64))
+127.0.0.1
+localhost
+
+3rd group (Deep Blue (0, 64, 128))
+X-Forwarded-Proto
+https
+X-Real-IP
+Server
+respond
+
+4th group (Red (128, 0, 0))
+job
+group
+network
+port
+service
+check
+config
+template
+resources
+
+5th group (Prefix mode; Bold; Purple(64, 0, 128))
+service
+/service
+
+
+

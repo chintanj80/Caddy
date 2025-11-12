@@ -1,0 +1,169 @@
+ah-1234.com:23000 {
+
+	log {
+		output file /path/to/log/file.log {
+			mode 640
+			roll_size 100 MiB
+			roll_uncompressed
+			roll_local_time
+			roll_keep 10
+			roll_keep_for 90d
+		}
+		format filter {
+			time_format wall_milli
+			time_local
+			
+		}
+		format append {
+			server_id {env.SERVER_ID}
+			wrap filter {
+				request>headers>Cookie delete
+			}
+		}
+		format filter {
+			wrap console
+			fields {
+				auth_user {http.auth.user.id}
+			}
+		}
+	}
+	
+	handle /health {
+		respond "Caddy proxy is running on port 23000" 200
+	}
+	
+	handle {
+		respond "Caddy Reverse Proxy Running on Port 23000.\nNothing else to see here."
+	}
+	
+	# Custom auth header using API Key
+	@apiKey header X-API-Key
+	@missingApiKey not header X-API-Key
+	
+	handle @missingAPiKey {
+		respond "Missing or invalid API key" 401
+	}
+	
+	# Custom Cookie validation 
+	@hasValidCookie header Cookie *my-auth-cookie=valid-token-*
+	@missingCookie not header Cookie *my-auth-cookie=*
+	
+	handle @missingCookie {
+		respond "Missing authentication cookie" 401
+	}
+	
+	handle @hasValidCookie {
+        # Your actual service routing
+        handle_path /service1/* {
+            reverse_proxy localhost:5001 {
+                # Pass cookie info to backend
+                header_up X-User-ID {http.auth.user.id}
+                header_up X-Auth-Valid true
+            }
+        }
+        handle_path /service2/* {
+            reverse_proxy localhost:5002 {
+                header_up X-User-ID {http.auth.user.id}
+                header_up X-Auth-Valid true
+            }
+        }
+        handle_path /service3/* {
+            reverse_proxy localhost:5003 {
+                header_up X-User-ID {http.auth.user.id}
+                header_up X-Auth-Valid true
+            }
+        }	
+	}
+	
+	
+	handle @preAuth {
+		reverse_proxy ah-5678.com:24000 ah-6789.com:24000 {
+			header_down Auth-Status OK
+			header_down UserID 
+			
+		}	
+		
+		# If auth fails, the auth service should return 401/403
+		# If auth succeeds, route to the actual service
+		@authSuccess header Auth-Status OK
+		
+		handle @authSuccess {
+		
+			# User Service v1 Routes to port 11101, 11102 on all cluster members
+			handle /api* {
+				
+				handle /api/user* {
+					
+					handle_path /api/user/v1* {
+						
+						reverse_proxy ah-5678.com:11101 ah-5678:11101 ah-6789.com:11101 ah-6789:11102 {
+								
+								# Load balancer policy
+								lb_policy round_robin
+								
+								# Add caddy defined headers to the request sent to the backend
+								header_up X-Real-IP {remote}
+								header_up X-Forwarded-Host {host}
+								header_up X-Forwarded-Port {port}
+								header_up X-Original-URL {uri}
+								header_up X-Original-Method {method}
+								
+								# Add custom header 
+								header_up X-Service-Name "/api/user/v1"
+								
+								# Remove a header from the request sent to the backend
+								header_down -Server
+								
+								# Advanced Path Rewriting - maps /api/user/v1/ to root of service
+								rewrite * /
+								# rewrite * /{path}
+						}
+					}
+				}
+				
+				handle /api/project* {
+				
+					handle_path /api/project/v1* {
+						
+						reverse_proxy ah-5678.com:12101 ah-5678:12101 ah-6789.com:12101 ah-6789:12102 {
+									
+									# Load balancer policy
+									lb_policy round_robin
+									
+									# Add caddy defined headers to the request sent to the backend
+									header_up X-Real-IP {remote}
+									header_up X-Forwarded-Host {host}
+									header_up X-Forwarded-Port {port}
+									header_up X-Original-URL {uri}
+									header_up X-Original-Method {method}
+									
+									# Add custom header 
+									header_up X-Service-Name "/api/user/v1"
+									
+									# Remove a header from the request sent to the backend
+									header_down -Server
+									
+									# Advanced Path Rewriting - maps /api/user/v1/ to root of service
+									rewrite * /
+									# rewrite * /{path}
+						}
+					}
+				}
+				
+				
+				
+				# Keep this as the last block within /api* to handle any unknown routes for /API
+				handle {
+					return "You have tried a API route that does not exist on this server" 401
+				}
+			}
+			
+			handle_path /api/project/v1/* {
+				reverse_proxy ah-5678.com:12101 ah-5678:12101 ah-6789.com:12101 ah-6789:12102
+			}
+		}
+	
+	}
+	
+
+}

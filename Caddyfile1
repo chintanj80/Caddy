@@ -1,0 +1,19 @@
+:5555 {
+	
+	log {
+		output file caddy.log {
+			mode 640
+			roll_local_time
+		}
+		format json {
+			time_format wall_milli
+			time_local
+		}
+		level INFO
+	}
+
+	
+	handle_path / {
+		reverse_proxy localhost:9091 localhost:9092 
+	}
+}

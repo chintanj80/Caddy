@@ -1,0 +1,3705 @@
+<!DOCTYPE html><html><head>
+      <title>Caddy Reverse Proxy</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <link rel="stylesheet" href="file:///c:\Users\chintan\.vscode\extensions\shd101wyy.markdown-preview-enhanced-0.8.20\crossnote\dependencies\katex\katex.min.css">
+      
+      
+      
+      
+      
+      <style>
+      code[class*=language-],pre[class*=language-]{color:#333;background:0 0;font-family:Consolas,"Liberation Mono",Menlo,Courier,monospace;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:1.4;-moz-tab-size:8;-o-tab-size:8;tab-size:8;-webkit-hyphens:none;-moz-hyphens:none;-ms-hyphens:none;hyphens:none}pre[class*=language-]{padding:.8em;overflow:auto;border-radius:3px;background:#f5f5f5}:not(pre)>code[class*=language-]{padding:.1em;border-radius:.3em;white-space:normal;background:#f5f5f5}.token.blockquote,.token.comment{color:#969896}.token.cdata{color:#183691}.token.doctype,.token.macro.property,.token.punctuation,.token.variable{color:#333}.token.builtin,.token.important,.token.keyword,.token.operator,.token.rule{color:#a71d5d}.token.attr-value,.token.regex,.token.string,.token.url{color:#183691}.token.atrule,.token.boolean,.token.code,.token.command,.token.constant,.token.entity,.token.number,.token.property,.token.symbol{color:#0086b3}.token.prolog,.token.selector,.token.tag{color:#63a35c}.token.attr-name,.token.class,.token.class-name,.token.function,.token.id,.token.namespace,.token.pseudo-class,.token.pseudo-element,.token.url-reference .token.variable{color:#795da3}.token.entity{cursor:help}.token.title,.token.title .token.punctuation{font-weight:700;color:#1d3e81}.token.list{color:#ed6a43}.token.inserted{background-color:#eaffea;color:#55a532}.token.deleted{background-color:#ffecec;color:#bd2c00}.token.bold{font-weight:700}.token.italic{font-style:italic}.language-json .token.property{color:#183691}.language-markup .token.tag .token.punctuation{color:#333}.language-css .token.function,code.language-css{color:#0086b3}.language-yaml .token.atrule{color:#63a35c}code.language-yaml{color:#183691}.language-ruby .token.function{color:#333}.language-markdown .token.url{color:#795da3}.language-makefile .token.symbol{color:#795da3}.language-makefile .token.variable{color:#183691}.language-makefile .token.builtin{color:#0086b3}.language-bash .token.keyword{color:#0086b3}pre[data-line]{position:relative;padding:1em 0 1em 3em}pre[data-line] .line-highlight-wrapper{position:absolute;top:0;left:0;background-color:transparent;display:block;width:100%}pre[data-line] .line-highlight{position:absolute;left:0;right:0;padding:inherit 0;margin-top:1em;background:hsla(24,20%,50%,.08);background:linear-gradient(to right,hsla(24,20%,50%,.1) 70%,hsla(24,20%,50%,0));pointer-events:none;line-height:inherit;white-space:pre}pre[data-line] .line-highlight:before,pre[data-line] .line-highlight[data-end]:after{content:attr(data-start);position:absolute;top:.4em;left:.6em;min-width:1em;padding:0 .5em;background-color:hsla(24,20%,50%,.4);color:#f4f1ef;font:bold 65%/1.5 sans-serif;text-align:center;vertical-align:.3em;border-radius:999px;text-shadow:none;box-shadow:0 1px #fff}pre[data-line] .line-highlight[data-end]:after{content:attr(data-end);top:auto;bottom:.4em}html body{font-family:'Helvetica Neue',Helvetica,'Segoe UI',Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ol,html body>ul{margin-bottom:16px}html body ol,html body ul{padding-left:2em}html body ol.no-list,html body ul.no-list{padding:0;list-style-type:none}html body ol ol,html body ol ul,html body ul ol,html body ul ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;background-color:#f0f0f0;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:700;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:700}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::after,html body code::before{letter-spacing:-.2em;content:'\00a0'}html body pre>code{padding:0;margin:0;word-break:normal;white-space:pre;background:0 0;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:after,html body pre code:before,html body pre tt:after,html body pre tt:before{content:normal}html body blockquote,html body dl,html body ol,html body p,html body pre,html body ul{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body code,html body pre{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview ul{list-style:disc}.markdown-preview ul ul{list-style:circle}.markdown-preview ul ul ul{list-style:square}.markdown-preview ol{list-style:decimal}.markdown-preview ol ol,.markdown-preview ul ol{list-style-type:lower-roman}.markdown-preview ol ol ol,.markdown-preview ol ul ol,.markdown-preview ul ol ol,.markdown-preview ul ul ol{list-style-type:lower-alpha}.markdown-preview .newpage,.markdown-preview .pagebreak{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center!important}.markdown-preview:not([data-for=preview]) .code-chunk .code-chunk-btn-group{display:none}.markdown-preview:not([data-for=preview]) .code-chunk .status{display:none}.markdown-preview:not([data-for=preview]) .code-chunk .output-div{margin-bottom:16px}.markdown-preview .md-toc{padding:0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link div,.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link p{display:inline}.markdown-preview .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,.66);border:4px solid rgba(150,150,150,.66);background-clip:content-box}html body[for=html-export]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0;min-height:100vh}@media screen and (min-width:914px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{font-size:14px!important;padding:1em}}@media print{html body[for=html-export]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for=html-export]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,.66);border:4px solid rgba(150,150,150,.66);background-clip:content-box}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc{padding:0 16px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link div,html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link p{display:inline}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% - 300px);padding:2em calc(50% - 457px - 300px / 2);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for=html-export]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for=html-export]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+/* Please visit the URL below for more information: */
+/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+
+      </style>
+      <!-- The content below will be included at the end of the <head> element. --><script type="text/javascript">
+  document.addEventListener("DOMContentLoaded", function () {
+    // your code here
+  });
+</script></head><body for="html-export">
+    
+    
+      <div class="crossnote markdown-preview  ">
+      
+<h1 id="caddy">Caddy </h1>
+<hr>
+<h3 id="part-1-detailed-explanation-of-caddy"><strong>Part 1: Detailed Explanation of Caddy</strong> </h3>
+<h4 id="what-is-caddy">What is Caddy? </h4>
+<p>Caddy is a modern, open-source web server and reverse proxy written in Go.<br>
+It's designed with security, ease of use, and performance in mind. Its<br>
+most famous feature is its ability to <strong>automatically obtain and renew TLS certificates</strong> from Let's Encrypt, making HTTPS the default.</p>
+<h4 id="key-features--why-caddy-stands-out">Key Features &amp; Why Caddy Stands Out </h4>
+<ol>
+<li>
+<p><strong>Automatic HTTPS:</strong> This is the killer feature. Caddy automatically provisions and renews<br>
+TLS certificates for your domains. You don't have to manually install <code>certbot</code> or configure challenge responses. Just define your domain, and Caddy does the rest.</p>
+</li>
+<li>
+<p><strong>Simple Configuration with Caddyfile:</strong> The primary configuration method is a human-readable file called the <code>Caddyfile</code>. Its syntax is clean and intuitive, drastically reducing the complexity compared to Nginx or Apache configs.</p>
+</li>
+<li>
+<p><strong>Powerful Reverse Proxying:</strong> Caddy excels at being a reverse proxy. It can seamlessly route incoming<br>
+requests to various backend services (like Node.js apps, Python APIs,<br>
+Go services, other containers, etc.), handle load balancing, and rewrite<br>
+headers.</p>
+</li>
+<li>
+<p><strong>Built-in Logging and Metrics:</strong> Caddy has structured logging out of the box and can export metrics in Prometheus format.</p>
+</li>
+<li>
+<p><strong>Extensible with Modules (Caddy 2):</strong> Caddy 2 is built on a modular architecture. You can extend its<br>
+functionality with a wide array of plugins from the Caddy Download page.</p>
+</li>
+<li>
+<p><strong>Memory-Safe:</strong> Written in Go, it benefits from memory safety, reducing the risk of common vulnerabilities like buffer overflows.</p>
+</li>
+<li>
+<p><strong>No Dependencies:</strong> It's a single static binary. You can run it anywhere without installing a runtime or other libraries.</p>
+</li>
+</ol>
+<h4 id="core-concepts">Core Concepts </h4>
+<ul>
+<li>
+<p><strong>Caddyfile:</strong> The simple, declarative configuration file. Great for most use cases.</p>
+</li>
+<li>
+<p><strong>JSON Config:</strong> Caddy's <em>native</em> configuration is JSON. The Caddyfile is actually converted to JSON<br>
+under the hood. For very advanced, dynamic configurations, you can use<br>
+JSON directly via the <strong>Admin API</strong>.</p>
+</li>
+<li>
+<p><strong>Sites:</strong> A "site" in Caddy is a configuration block defined by a hostname (e.g., <code>example.com</code>). Each site can have its own set of rules.</p>
+</li>
+<li>
+<p><strong>Handlers:</strong> These are the modules that perform tasks. For example, the <code>file_server</code> handler serves static files, the <code>reverse_proxy</code> handler routes requests to a backend, and the <code>rewrite</code> handler changes requests internally.</p>
+</li>
+</ul>
+<hr>
+<h3 id="part-2-user-guide---getting-started--common-configurations"><strong>Part 2: User Guide - Getting Started &amp; Common Configurations</strong> </h3>
+<h4 id="1-installation">1. Installation </h4>
+<p><strong>Official Methods (Recommended):</strong></p>
+<ul>
+<li>
+<p><strong>Download the Binary:</strong> Visit the <a href="https://caddyserver.com/download">Caddy Download Page</a>, select your platform and any plugins you need, and download the binary.</p>
+</li>
+<li>
+<p><strong>Package Managers:</strong></p>
+<ul>
+<li>
+<p><strong>macOS:</strong> <code>brew install caddy</code></p>
+</li>
+<li>
+<p><strong>Ubuntu/Debian:</strong> Follow the instructions on the official website to add the repository and <code>apt install caddy</code>.</p>
+</li>
+<li>
+<p><strong>Docker:</strong> <code>docker pull caddy</code></p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-basic-structure-of-a-caddyfile">2. Basic Structure of a Caddyfile </h4>
+<p>The <code>Caddyfile</code> typically resides in the same directory from where you run Caddy.</p>
+<p>text</p>
+<pre data-role="codeBlock" data-info="" class="language-text"><code># Caddyfile
+
+# The site address - this is the key that starts a site block.
+
+# Caddy will automatically manage HTTPS for this domain.
+
+myapp.example.com {
+    # Set a root directory for static files (optional for reverse proxy)
+    root * /var/www/html
+    # Use the file_server to serve static files
+    file_server
+    # Or, use reverse_proxy to route requests to a backend
+    reverse_proxy localhost:3000
+}
+</code></pre><p><strong>Important:</strong> The first line of a site block must be the address. <code>:80</code> will work for all domains on port 80, <code>localhost</code> will work for localhost.</p>
+<h4 id="3-running-caddy">3. Running Caddy </h4>
+<ol>
+<li>
+<p>Save your configuration in a file named <code>Caddyfile</code>.</p>
+</li>
+<li>
+<p>Open a terminal in that directory.</p>
+</li>
+<li>
+<p>Run:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token comment"># bash</span>
+
+<span class="token comment"># If running in the foreground</span>
+caddy run
+
+<span class="token comment"># Or, run as a service/demon (recommended for production)</span>
+caddy start
+</code></pre></li>
+</ol>
+<p>If your <code>Caddyfile</code> uses a public domain (e.g., <code>myapp.example.com</code>), ensure your DNS is pointing to your server's IP. Caddy will fail to start if it can't validate the domain.</p>
+<h4 id="4-common-reverse-proxy-configurations">4. Common Reverse Proxy Configurations </h4>
+<p><strong>a) Basic API Proxy</strong><br>
+Proxies all requests for <code>api.example.com</code> to a backend service running on port 8080.</p>
+<p>text</p>
+<pre data-role="codeBlock" data-info="" class="language-text"><code>api.example.com {
+    reverse_proxy localhost:8080
+}
+</code></pre><p><strong>b) Path-Based Routing</strong><br>
+Routes different paths to different backend services. This is very common with microservices.</p>
+<p>text</p>
+<pre data-role="codeBlock" data-info="" class="language-text"><code>apps.example.com {
+    # Route /api/* to the API service
+    handle_path /api/* {
+        reverse_proxy localhost:8001
+    }
+    # Route /admin/* to the admin dashboard
+    handle_path /admin/* {
+        reverse_proxy localhost:8002
+    }
+    # Route everything else to the main frontend app
+    handle {
+        reverse_proxy localhost:3000
+    }
+}
+</code></pre><p><strong>c) Load Balancing</strong><br>
+Distributes traffic across multiple backend instances.</p>
+<p>text</p>
+<pre data-role="codeBlock" data-info="" class="language-text"><code>myapp.example.com {
+    reverse_proxy node-server-1:3000 node-server-2:3000 node-server-3:3000 {
+        # Choose a load balancing policy (optional)
+        lb_policy first
+    }
+}
+</code></pre><p><strong>d) WebSocket Support</strong><br>
+WebSocket support is built-in and usually works automatically. For tricky setups, you can be explicit.</p>
+<p>text</p>
+<pre data-role="codeBlock" data-info="" class="language-text"><code>chat.example.com {
+    reverse_proxy localhost:5001 {
+        # Force header rewrites for WS upgrade
+        header_up X-Forwarded-Proto https
+        header_up Connection {&gt;Connection}
+        header_up Upgrade {&gt;Upgrade}
+    }
+}
+</code></pre><p><strong>e) Header Manipulation</strong><br>
+Add, remove, or rewrite headers when proxying.</p>
+<p>text</p>
+<pre data-role="codeBlock" data-info="" class="language-text"><code>api.example.com {
+    reverse_proxy localhost:8080 {
+        # Add a header to the request sent to the backend
+        header_up X-Real-IP {remote_host}
+        # Remove a header from the request sent to the backend
+        header_down -Server
+    }
+}
+</code></pre><h4 id="5-serving-static-files">5. Serving Static Files </h4>
+<p>Caddy is also an excellent static file server.</p>
+<p>text</p>
+<pre data-role="codeBlock" data-info="" class="language-text"><code>static.example.com {
+    # Set the root directory for this site
+    root * /srv/static-files
+
+    # Enable the file server
+    file_server
+
+    # Optional: Enable browsing (shows directory listings if no index.html)
+    file_server browse
+}
+</code></pre><h4 id="6-advanced-configurations-with--matchers">6. Advanced Configurations with <code>@</code> Matchers </h4>
+<p>You can define conditional blocks using matchers.</p>
+<p>text</p>
+<pre data-role="codeBlock" data-info="" class="language-text"><code>example.com {
+    # Matcher named "api" for paths starting with /api or /v1
+    @api {
+        path /api/* /v1/*
+    }
+
+    # Apply a different proxy for API routes
+    handle @api {
+        reverse_proxy localhost:8080
+    }
+
+    # For everything else, serve static files
+    handle {
+        root * /var/www/html
+        file_server
+    }
+}
+</code></pre><hr>
+<h3 id="part-3-production--best-practices"><strong>Part 3: Production &amp; Best Practices</strong> </h3>
+<h4 id="1-the-caddyfile-vs-json-api">1. The <code>Caddyfile</code> vs. JSON API </h4>
+<ul>
+<li>
+<p><strong>Use the <code>Caddyfile</code></strong> for manual, file-based configuration. It's perfect for most deployments, including Docker.</p>
+</li>
+<li>
+<p><strong>Use the JSON API</strong> for dynamic, automated configurations, or when you need features not expressible in the Caddyfile. The API is used by tools like <code>docker-gen</code> or custom scripts.</p>
+</li>
+</ul>
+<h4 id="2-running-as-a-service">2. Running as a Service </h4>
+<p>After installing via a package manager, Caddy typically registers itself as a systemd service.</p>
+<ul>
+<li>
+<p><strong>Start:</strong> <code>sudo systemctl start caddy</code></p>
+</li>
+<li>
+<p><strong>Enable (start on boot):</strong> <code>sudo systemctl enable caddy</code></p>
+</li>
+<li>
+<p><strong>Check Status:</strong> <code>sudo systemctl status caddy</code></p>
+</li>
+<li>
+<p><strong>View Logs:</strong> <code>sudo journalctl -u caddy -f</code></p>
+</li>
+</ul>
+<h4 id="3-file-structure-for-production">3. File Structure for Production </h4>
+<p>A common Linux production structure:</p>
+<p>text</p>
+<pre data-role="codeBlock" data-info="" class="language-text"><code>/etc/caddy/
+├── Caddyfile          # Main configuration file
+└── sites/             # (Optional) You can split configs
+    └── app1.caddy
+/var/lib/caddy/        # Where Caddy stores TLS certificates, etc.
+</code></pre><h4 id="4-using-docker">4. Using Docker </h4>
+<p>A simple <code>docker-compose.yml</code>:</p>
+<p>yaml</p>
+<pre data-role="codeBlock" data-info="yaml" class="language-yaml yaml"><code><span class="token key atrule">version</span><span class="token punctuation">:</span> <span class="token string">"3.7"</span>
+
+<span class="token key atrule">services</span><span class="token punctuation">:</span>
+  <span class="token key atrule">caddy</span><span class="token punctuation">:</span>
+    <span class="token key atrule">image</span><span class="token punctuation">:</span> caddy<span class="token punctuation">:</span>2<span class="token punctuation">-</span>alpine
+    <span class="token key atrule">restart</span><span class="token punctuation">:</span> unless<span class="token punctuation">-</span>stopped
+    <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token string">"80:80"</span>
+      <span class="token punctuation">-</span> <span class="token string">"443:443"</span>
+    <span class="token key atrule">volumes</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> ./Caddyfile<span class="token punctuation">:</span>/etc/caddy/Caddyfile
+      <span class="token punctuation">-</span> ./site<span class="token punctuation">:</span>/srv
+      <span class="token punctuation">-</span> caddy_data<span class="token punctuation">:</span>/data
+      <span class="token punctuation">-</span> caddy_config<span class="token punctuation">:</span>/config
+
+<span class="token key atrule">volumes</span><span class="token punctuation">:</span>
+  <span class="token key atrule">caddy_data</span><span class="token punctuation">:</span>
+  <span class="token key atrule">caddy_config</span><span class="token punctuation">:</span>
+</code></pre><h3 id="summary-caddyfile-cheat-sheet"><strong>Summary: Caddyfile Cheat Sheet</strong> </h3>
+<table>
+<thead>
+<tr>
+<th>Directive</th>
+<th>Purpose</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>reverse_proxy</code></td>
+<td>Proxy requests to a backend</td>
+<td><code>reverse_proxy localhost:3000</code></td>
+</tr>
+<tr>
+<td><code>file_server</code></td>
+<td>Serve static files from a root</td>
+<td><code>file_server</code></td>
+</tr>
+<tr>
+<td><code>root</code></td>
+<td>Set the root directory for files</td>
+<td><code>root * /var/www</code></td>
+</tr>
+<tr>
+<td><code>handle</code></td>
+<td>Define a route handling block</td>
+<td><code>handle /api/* { ... }</code></td>
+</tr>
+<tr>
+<td><code>handle_path</code></td>
+<td>Like handle, but strips the path prefix</td>
+<td><code>handle_path /admin/* { ... }</code></td>
+</tr>
+<tr>
+<td><code>@name</code></td>
+<td>Define a named matcher</td>
+<td><code>@api { path /api/* }</code></td>
+</tr>
+<tr>
+<td><code>header_up</code></td>
+<td>Set a header for the upstream request</td>
+<td><code>header_up X-Real-IP {remote}</code></td>
+</tr>
+<tr>
+<td><code>header_down</code></td>
+<td>Set a header for the client response</td>
+<td><code>header_down -Server</code></td>
+</tr>
+<tr>
+<td><code>encode gzip</code></td>
+<td>Enable gzip compression</td>
+<td><code>encode gzip</code></td>
+</tr>
+<tr>
+<td><code>log</code></td>
+<td>Configure logging</td>
+<td><code>log { output file /var/log/caddy/access.log }</code></td>
+</tr>
+<tr>
+<td><code>tls internal</code></td>
+<td>Use Caddy's internal CA for HTTPS (for local dev)</td>
+<td><code>tls internal</code></td>
+</tr>
+<tr>
+<td><code>redir</code></td>
+<td>Redirect requests</td>
+<td><code>redir /old-url /new-url 301</code></td>
+</tr>
+</tbody>
+</table>
+<p>Caddy's philosophy is to simplify web server configuration without sacrificing power. Start with the <code>Caddyfile</code> for its incredible readability, and dive into the JSON API only when your needs become more complex. Its automatic HTTPS alone makes it a<br>
+compelling choice for modern web infrastructure.</p>
+<h3 id="configuring-api-services-using-revese-proxy-option">Configuring API Services using Revese Proxy Option </h3>
+<p>Let's say you have 3 services running on port 5001, 5002 and 5003. Here's how to configure Caddy as a reverse proxy for your three services with Caddy Serving on Port 55555</p>
+<h4 id="option-1-path-based-routing-recommended">Option 1: Path-Based Routing (Recommended) </h4>
+<p>This routes different URL paths to different services:</p>
+<p>text</p>
+<pre data-role="codeBlock" data-info="" class="language-text"><code>:55555 {
+    # Service 1 - accessible at http://your-domain:55555/service1
+    handle_path /service1/* {
+        reverse_proxy localhost:5001
+    }
+    # Service 2 - accessible at http://your-domain:55555/service2  
+    handle_path /service2/* {
+        reverse_proxy localhost:5002
+    }
+    # Service 3 - accessible at http://your-domain:55555/service3
+    handle_path /service3/* {
+        reverse_proxy localhost:5003
+    }
+    # Optional: Default route if no path matches
+    handle {
+        respond "Available services: /service1, /service2, /service3"
+    }
+}
+</code></pre><h4 id="option-2-host-based-routing-if-you-have-domains">Option 2: Host-Based Routing (if you have domains) </h4>
+<p>If you have different domain names pointing to the same server:</p>
+<p>text</p>
+<pre data-role="codeBlock" data-info="" class="language-text"><code>service1.example.com:55555 {
+    reverse_proxy localhost:5001
+}
+service2.example.com:55555 {
+    reverse_proxy localhost:5002
+}
+service3.example.com:55555 {
+    reverse_proxy localhost:5003
+}
+</code></pre><h4 id="option-3-subdomain-routing-on-same-port">Option 3: Subdomain Routing on Same Port </h4>
+<p>text</p>
+<pre data-role="codeBlock" data-info="" class="language-text"><code>:55555 {
+    # Service 1 - accessible at http://service1.your-domain:55555
+    handle host service1.* {
+        reverse_proxy localhost:5001
+    }
+    # Service 2 - accessible at http://service2.your-domain:55555
+    handle host service2.* {
+        reverse_proxy localhost:5002
+    }
+    # Service 3 - accessible at http://service3.your-domain:55555
+    handle host service3.* {
+        reverse_proxy localhost:5003
+    }
+}
+</code></pre><h4 id="option-4-load-balancing-all-traffic-distributed">Option 4: Load Balancing (All traffic distributed) </h4>
+<p>If you want to load balance between all three services:</p>
+<p>text</p>
+<pre data-role="codeBlock" data-info="" class="language-text"><code>:55555 {
+    reverse_proxy localhost:5001 localhost:5002 localhost:5003 {
+        # Optional: choose load balancing policy
+        lb_policy round_robin
+    }
+}
+</code></pre><h4 id="option-5-advanced-path-rewriting">Option 5: Advanced Path Rewriting </h4>
+<p>If your services expect different base paths:</p>
+<p>text</p>
+<pre data-role="codeBlock" data-info="" class="language-text"><code>:55555 {
+    # Service 1 - removes /api/v1 prefix when proxying
+    handle_path /api/v1/* {
+        rewrite * /api/v1{path}
+        reverse_proxy localhost:5001
+    }
+    # Service 2 - maps /app to root of service 2
+    handle_path /app/* {
+        rewrite * /{path}
+        reverse_proxy localhost:5002
+    }
+    # Service 3 - direct mapping
+    handle_path /admin/* {
+        reverse_proxy localhost:5003
+    }
+}
+</code></pre><h2 id="how-to-set-this-up">How to Set This Up: </h2>
+<ol>
+<li>
+<p><strong>Create the Caddyfile:</strong></p>
+<p>bash</p>
+</li>
+</ol>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token function">mkdir</span> <span class="token parameter variable">-p</span> ~/caddy-config
+<span class="token builtin class-name">cd</span> ~/caddy-config
+<span class="token function">nano</span> Caddyfile
+</code></pre><ol start="2">
+<li>
+<p><strong>Paste your chosen configuration</strong></p>
+</li>
+<li>
+<p><strong>Run Caddy:</strong></p>
+</li>
+</ol>
+<p>bash</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token comment"># Test configuration</span>
+caddy validate
+
+<span class="token comment"># Run in foreground</span>
+caddy run
+
+<span class="token comment"># Or run as daemon in background</span>
+caddy start
+
+</code></pre><ol start="4">
+<li><strong>Test your setup:</strong></li>
+</ol>
+<p>bash</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token function">curl</span> http://localhost:55555/service1/some-endpoint
+<span class="token function">curl</span> http://localhost:55555/service2/some-endpoint  
+<span class="token function">curl</span> http://localhost:55555/service3/some-endpoint
+</code></pre><h2 id="complete-working-example-option-1">Complete Working Example (Option 1): </h2>
+<p>Here's a production-ready configuration with additional features:</p>
+<p>text</p>
+<pre data-role="codeBlock" data-info="" class="language-text"><code>:55555 {
+    # Enable logging
+    log {
+        output file /var/log/caddy/access.log
+    }
+    # Service 1 - API service
+    handle_path /api/* {
+        reverse_proxy localhost:5001 {
+            # Add headers for the backend
+            header_up X-Forwarded-Host {host}
+            header_up X-Forwarded-Port {port}
+            header_up X-Real-IP {remote}
+        }
+    }
+    # Service 2 - Web app
+    handle_path /app/* {
+        reverse_proxy localhost:5002 {
+            # Support WebSockets
+            header_up Connection {&gt;Connection}
+            header_up Upgrade {&gt;Upgrade}
+        }
+    }
+    # Service 3 - Admin panel
+    handle_path /admin/* {
+        reverse_proxy localhost:5003 {
+            # Set a custom header
+            header_up X-Service-Name "admin-panel"
+        }
+    }
+    # Health check endpoint
+    handle /health {
+        respond "Caddy proxy is running on port 55555"
+    }
+    # Default route - show available services
+    handle {
+        respond "Caddy Reverse Proxy Running on Port 55555\n\nAvailable Services:\n- /api/* -&gt; :5001\n- /app/* -&gt; :5002\n- /admin/* -&gt; :5003"
+    }
+}
+</code></pre><h2 id="docker-compose-example">Docker Compose Example: </h2>
+<p>If you're running everything in Docker:</p>
+<p>yaml</p>
+<pre data-role="codeBlock" data-info="yml" class="language-yaml yml"><code><span class="token key atrule">version</span><span class="token punctuation">:</span> <span class="token string">'3.8'</span>
+
+<span class="token key atrule">services</span><span class="token punctuation">:</span>
+  <span class="token key atrule">caddy</span><span class="token punctuation">:</span>
+    <span class="token key atrule">image</span><span class="token punctuation">:</span> caddy<span class="token punctuation">:</span>2<span class="token punctuation">-</span>alpine
+    <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token string">"55555:55555"</span>
+    <span class="token key atrule">volumes</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> ./Caddyfile<span class="token punctuation">:</span>/etc/caddy/Caddyfile
+      <span class="token punctuation">-</span> caddy_data<span class="token punctuation">:</span>/data
+    <span class="token key atrule">networks</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> app<span class="token punctuation">-</span>network
+
+  <span class="token key atrule">service1</span><span class="token punctuation">:</span>
+    <span class="token key atrule">image</span><span class="token punctuation">:</span> your<span class="token punctuation">-</span>service1<span class="token punctuation">-</span>image
+    <span class="token key atrule">networks</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> app<span class="token punctuation">-</span>network
+
+  <span class="token key atrule">service2</span><span class="token punctuation">:</span>
+    <span class="token key atrule">image</span><span class="token punctuation">:</span> your<span class="token punctuation">-</span>service2<span class="token punctuation">-</span>image  
+    <span class="token key atrule">networks</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> app<span class="token punctuation">-</span>network
+
+  <span class="token key atrule">service3</span><span class="token punctuation">:</span>
+    <span class="token key atrule">image</span><span class="token punctuation">:</span> your<span class="token punctuation">-</span>service3<span class="token punctuation">-</span>image
+    <span class="token key atrule">networks</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> app<span class="token punctuation">-</span>network
+
+<span class="token key atrule">networks</span><span class="token punctuation">:</span>
+  <span class="token key atrule">app-network</span><span class="token punctuation">:</span>
+
+<span class="token key atrule">volumes</span><span class="token punctuation">:</span>
+  <span class="token key atrule">caddy_data</span><span class="token punctuation">:</span>
+</code></pre><p>And update the Caddyfile to use service names instead of <code>localhost</code>:</p>
+<p>text</p>
+<pre data-role="codeBlock" data-info="" class="language-text"><code>:55555 {
+    handle_path /service1/* {
+        reverse_proxy service1:5001
+    }
+    handle_path /service2/* {
+        reverse_proxy service2:5002
+    }
+    handle_path /service3/* {
+        reverse_proxy service3:5003
+    }
+}
+</code></pre><p>The <strong>path-based routing (Option 1)</strong> is usually the most straightforward approach. Your services will be accessible at:</p>
+<ul>
+<li>
+<p><code>http://your-server:55555/service1</code></p>
+</li>
+<li>
+<p><code>http://your-server:55555/service2</code></p>
+</li>
+<li>
+<p><code>http://your-server:55555/service3</code></p>
+</li>
+</ul>
+<h2 id="caddy-authentication-of-incoming-requests">Caddy Authentication of incoming requests </h2>
+<p>Caddy has powerful authentication capabilities. Here are<br>
+several ways to add authentication to your reverse proxy setup:</p>
+<h4 id="option-1-basic-authentication-simplest">Option 1: Basic Authentication (Simplest) </h4>
+<p>This adds username/password protection to all routes:</p>
+<pre data-role="codeBlock" data-info="" class="language-text"><code>:55555 {
+    # Enable basic auth for all routes
+    basicauth {
+        # Format: username hashed_password
+        # Generate with: caddy hash-password
+        admin JDJhJDE0JEV4WmhVM3BubWo1bHZzZFB1R1V1SGVDc1V0N2pYWm1hZHNpZGRVWUxVbkt0c1hLdWllUzU2
+        user JDJhJDE0JG1ZcHA4U2VHNHpmZ0h0dWY1bXAuNE9XQW5LM1BNQ3ZQN3l2LjZvWGFJSHpXTFguT3VxQkZT
+    }
+    handle_path /service1/* {
+        reverse_proxy localhost:5001
+    }
+    handle_path /service2/* {
+        reverse_proxy localhost:5002
+    }
+    handle_path /service3/* {
+        reverse_proxy localhost:5003
+    }
+}
+</code></pre><p><strong>To generate passwords:</strong></p>
+<p>bash</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>caddy hash-password <span class="token parameter variable">--plaintext</span> <span class="token string">"your_password"</span>
+</code></pre><h4 id="option-2-jwt-token-authentication">Option 2: JWT Token Authentication </h4>
+<p>For API tokens and modern auth:</p>
+<p>text</p>
+<pre data-role="codeBlock" data-info="" class="language-text"><code>:55555 {
+    # JWT validation for all requests
+    jwt {
+        primary yes
+        set auth url https://your-auth-server/.well-known/jwks.json
+        # or use a static secret:
+        # secret "your-jwt-secret-here"
+    }
+    handle_path /service1/* {
+        reverse_proxy localhost:5001 {
+            # Pass user info to backend
+            header_up X-User-Id {jwt.sub}
+            header_up X-User-Roles {jwt.roles}
+        }
+    }
+    handle_path /service2/* {
+        reverse_proxy localhost:5002 {
+            header_up X-User-Id {jwt.sub}
+        }
+    }
+    handle_path /service3/* {
+        reverse_proxy localhost:5003 {
+            header_up X-User-Id {jwt.sub}
+        }
+    }
+    # Public health endpoint (no auth)
+    handle /health {
+        respond "OK"
+    }
+}
+</code></pre><h4 id="option-3-custom-auth-server-reverse-proxy-to-auth-service">Option 3: Custom Auth Server (Reverse Proxy to Auth Service) </h4>
+<p>Route all requests through an authentication service first:</p>
+<p>text</p>
+<pre data-role="codeBlock" data-info="" class="language-text"><code>:55555 {
+    # Forward to auth service for validation
+    @preAuth path /service1/* /service2/* /service3/*
+    handle @preAuth {
+        reverse_proxy localhost:8000 {
+            # Auth service validates and returns user info
+            header_down Auth-Status OK
+        }
+
+    &nbsp;&nbsp;&nbsp;&nbsp;# If auth fails, the auth service should return 401/403
+    &nbsp;&nbsp;&nbsp;&nbsp;# If auth succeeds, route to the actual service
+    &nbsp;&nbsp;&nbsp;&nbsp;@authSuccess header Auth-Status OK
+    &nbsp;&nbsp;&nbsp;&nbsp;handle @authSuccess {
+        &nbsp;&nbsp;&nbsp;&nbsp;rewrite * {path} 
+        &nbsp;&nbsp;&nbsp;&nbsp;reverse_proxy localhost:5001 localhost:5002 localhost:5003 {
+           &nbsp;&nbsp;&nbsp;&nbsp; @s1 path /service1/*
+            &nbsp;&nbsp;&nbsp;&nbsp;handle @s1 {
+                &nbsp;&nbsp;&nbsp;&nbsp;reverse_proxy localhost:5001
+            &nbsp;&nbsp;&nbsp;&nbsp;}
+            &nbsp;&nbsp;&nbsp;&nbsp;@s2 path /service2/*
+            &nbsp;&nbsp;&nbsp;&nbsp;handle @s2 {
+            &nbsp;&nbsp;&nbsp;&nbsp;    reverse_proxy localhost:5002
+            &nbsp;&nbsp;&nbsp;&nbsp;}
+            &nbsp;&nbsp;&nbsp;&nbsp;@s3 path /service3/*
+            &nbsp;&nbsp;&nbsp;&nbsp;handle @s3 {
+                &nbsp;&nbsp;&nbsp;&nbsp;reverse_proxy localhost:5003
+            &nbsp;&nbsp;&nbsp;&nbsp;}
+        &nbsp;&nbsp;&nbsp;&nbsp;}
+    &nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;}
+}
+
+</code></pre><h4 id="option-4-caddy-with-external-auth-header">Option 4: Caddy with External Auth Header </h4>
+<p>Validate against an external auth service:</p>
+<p>text</p>
+<pre class="language-text">:55555 {
+&nbsp;&nbsp;&nbsp;&nbsp;# Import auth plugin (you might need to build Caddy with this)
+&nbsp;&nbsp;&nbsp;&nbsp;# import auth
+&nbsp;&nbsp;&nbsp;&nbsp;handle_path /service1/* {
+    &nbsp;&nbsp;&nbsp;&nbsp;# Forward to auth service for token validation
+&nbsp;&nbsp;&nbsp;&nbsp;    reverse_proxy localhost:8000 {
+&nbsp;&nbsp;&nbsp;&nbsp;        # Copy original request headers
+&nbsp;&nbsp;&nbsp;&nbsp;        header_up X-Original-URL {uri}
+&nbsp;&nbsp;&nbsp;&nbsp;        header_up X-Original-Method {method}
+
+        &nbsp;&nbsp;&nbsp;&nbsp;# Auth service responds with 200 OK or 401/403
+    &nbsp;&nbsp;&nbsp;&nbsp;}
+
+    &nbsp;&nbsp;&nbsp;&nbsp;# Only proxy to actual service if auth succeeds
+    &nbsp;&nbsp;&nbsp;&nbsp;@authorized header Auth-User *
+    &nbsp;&nbsp;&nbsp;&nbsp;handle @authorized {
+        &nbsp;&nbsp;&nbsp;&nbsp;reverse_proxy localhost:5001 {
+            &nbsp;&nbsp;&nbsp;&nbsp;header_up X-User {http.auth.user}
+        &nbsp;&nbsp;&nbsp;&nbsp;}
+    &nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;}
+
+# Similar for other services...
+}
+</pre>
+<h2 id="option-5-api-key-authentication">Option 5: API Key Authentication </h2>
+<p>Simple API key validation:</p>
+<p>text</p>
+<pre class="language-text">:55555 {
+ &nbsp;&nbsp;&nbsp;&nbsp;# Validate API key from header
+&nbsp;&nbsp;&nbsp;&nbsp;@apiKey header X-API-Key your-secret-api-key-123
+&nbsp;&nbsp;&nbsp;&nbsp;@missingApiKey not header X-API-Key your-secret-api-key-123
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;handle @missingApiKey {
+    &nbsp;&nbsp;&nbsp;&nbsp;respond "Missing or invalid API key" 401
+&nbsp;&nbsp;&nbsp;&nbsp;}
+
+&nbsp;&nbsp;&nbsp;&nbsp;handle_path /service1/* {
+    &nbsp;&nbsp;&nbsp;&nbsp;reverse_proxy localhost:5001 {
+        &nbsp;&nbsp;&nbsp;&nbsp;header_up X-API-Key-Valid "true"
+&nbsp;&nbsp;&nbsp;&nbsp;    }
+&nbsp;&nbsp;&nbsp;&nbsp;}
+
+&nbsp;&nbsp;&nbsp;&nbsp;handle_path /service2/* {
+    &nbsp;&nbsp;&nbsp;&nbsp;reverse_proxy localhost:5002 {
+        &nbsp;&nbsp;&nbsp;&nbsp;header_up X-API-Key-Valid "true"
+&nbsp;&nbsp;&nbsp;&nbsp;    }
+&nbsp;&nbsp;&nbsp;&nbsp;}
+
+&nbsp;&nbsp;&nbsp;&nbsp;handle_path /service3/* {
+    &nbsp;&nbsp;&nbsp;&nbsp;reverse_proxy localhost:5003 {
+        &nbsp;&nbsp;&nbsp;&nbsp;header_up X-API-Key-Valid "true"
+&nbsp;&nbsp;&nbsp;&nbsp;    }
+&nbsp;&nbsp;&nbsp;&nbsp;}
+}
+</pre>
+<h2 id="option-6-oauth2openid-connect">Option 6: OAuth2/OpenID Connect </h2>
+<p>For more complex authentication (requires Caddy with auth plugin):</p>
+<p>text</p>
+<pre data-role="codeBlock" data-info="" class="language-text"><code>:55555 {
+    # OAuth2 configuration
+    oauth {
+        provider github {
+            client_id "your-client-id"
+            client_secret "your-client-secret"
+            scopes user:email
+        }
+        redirect_url "https://your-domain:55555/oauth2/callback"
+        cookie_domain "your-domain"
+    }
+
+    handle /oauth2/* {
+        respond "OAuth endpoints"
+    }
+
+    # Protect all services
+    handle_path /service1/* {
+        # This will automatically redirect to OAuth if not authenticated
+        reverse_proxy localhost:5001 {
+            header_up X-User {http.user}
+        }
+    }
+
+&nbsp;&nbsp;&nbsp;&nbsp;# ... similar for other services
+}
+</code></pre><h2 id="complete-working-example-basic-auth--public-health-check">Complete Working Example (Basic Auth + Public Health Check) </h2>
+<p>Here's a production-ready configuration with mixed authentication:</p>
+<p>text</p>
+<pre data-role="codeBlock" data-info="" class="language-text"><code>:55555 {
+    # Generate passwords: caddy hash-password --plaintext "password"
+    basicauth {
+        admin JDJhJDE0JEV4WmhVM3BubWo1bHZzZFB1R1V1SGVDc1V0N2pYWm1hZHNpZGRVWUxVbkt0c1hLdWllUzU2
+        api_user JDJhJDE0JG1ZcHA4U2VHNHpmZ0h0dWY1bXAuNE9XQW5LM1BNQ3ZQN3l2LjZvWGFJSHpXTFguT3VxQkZT
+    }
+    # Public endpoints (no auth required)
+    handle /health {
+        respond "OK" 200
+    }
+    handle /public/* {
+        respond "Public endpoint" 200
+    }
+    # Protected endpoints
+    handle_path /service1/* {
+        reverse_proxy localhost:5001 {
+            # Pass auth info to backend
+            header_up X-Authenticated-User {http.auth.user.id}
+        }
+    }
+    handle_path /service2/* {
+        reverse_proxy localhost:5002 {
+            header_up X-Authenticated-User {http.auth.user.id}
+        }
+    }
+    handle_path /service3/* {
+        reverse_proxy localhost:5003 {
+            header_up X-Authenticated-User {http.auth.user.id}
+        }
+    }
+    # Log authentication events
+    log {
+        output file /var/log/caddy/auth.log
+        format filter {
+            wrap console
+            fields {
+                auth_user {http.auth.user.id}
+            }
+        }
+    }
+}
+</code></pre><h2 id="testing-your-authentication">Testing Your Authentication </h2>
+<p><strong>For Basic Auth:</strong></p>
+<p>bash</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token comment"># Without auth (should get 401)</span>
+
+<span class="token function">curl</span> http://localhost:55555/service1/test
+
+<span class="token comment">#With auth (replace with your credentials)</span>
+
+<span class="token function">curl</span> <span class="token parameter variable">-u</span> admin:password http://localhost:55555/service1/test
+
+<span class="token comment"># Or with header</span>
+
+<span class="token function">curl</span> <span class="token parameter variable">-H</span> <span class="token string">"Authorization: Basic <span class="token variable"><span class="token variable">$(</span><span class="token builtin class-name">echo</span> <span class="token parameter variable">-n</span> <span class="token string">'admin:password'</span> <span class="token operator">|</span> base64<span class="token variable">)</span></span>"</span>  
+http://localhost:55555/service1/test 
+</code></pre><p><strong>For API Key:</strong></p>
+<p>bash</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token function">curl</span> <span class="token parameter variable">-H</span> <span class="token string">"X-API-Key: your-secret-api-key-123"</span> <span class="token punctuation">\</span>With auth <span class="token punctuation">(</span>replace with your credentials<span class="token punctuation">)</span>
+
+
+</code></pre><h2 id="recommendations">Recommendations </h2>
+<ol>
+<li>
+<p><strong>Start with Basic Auth</strong> if you need simple username/password protection</p>
+</li>
+<li>
+<p><strong>Use JWT</strong> for API-based applications</p>
+</li>
+<li>
+<p><strong>Custom Auth Server</strong> gives you the most flexibility for complex requirements</p>
+</li>
+<li>
+<p><strong>Always pass auth information</strong> to your backend services via headers</p>
+</li>
+</ol>
+<p>The Basic Authentication option is the easiest to implement and comes built-in with Caddy, making it a great starting point for most use cases.</p>
+<h3 id="custom-cookie-authentication">Custom Cookie Authentication </h3>
+<p>For authenticating a custom cookie, <strong>Option 2 (JWT Token Authentication) is your best choice</strong>, but I'll show you a more specific configuration tailored for custom cookie authentication.</p>
+<h2 id="option-1-custom-cookie-validation-with-caddy-recommended">Option 1: Custom Cookie Validation with Caddy (Recommended) </h2>
+<p>This validates a custom cookie on every request:</p>
+<p>text</p>
+<pre data-role="codeBlock" data-info="" class="language-text"><code>:55555 {
+    # Validate custom cookie for all protected routes
+    @hasValidCookie header Cookie *my-auth-cookie=valid-token-*
+    @missingCookie not header Cookie *my-auth-cookie=*
+    # Block requests without the cookie
+    handle @missingCookie {
+        respond "Missing authentication cookie" 401
+    }
+    # Block requests with invalid cookie
+    handle @hasValidCookie {
+        # Your actual service routing
+        handle_path /service1/* {
+            reverse_proxy localhost:5001 {
+                # Pass cookie info to backend
+                header_up X-User-ID {http.auth.user.id}
+                header_up X-Auth-Valid true
+            }
+        }
+        handle_path /service2/* {
+            reverse_proxy localhost:5002 {
+                header_up X-User-ID {http.auth.user.id}
+                header_up X-Auth-Valid true
+            }
+        }
+        handle_path /service3/* {
+            reverse_proxy localhost:5003 {
+                header_up X-User-ID {http.auth.user.id}
+                header_up X-Auth-Valid true
+            }
+        }
+    }
+    # Public endpoints (no auth required)
+    handle /health {
+        respond "OK" 200
+    }
+    handle /login {
+        respond "Login endpoint" 200
+    }
+}
+</code></pre><h2 id="option-2-advanced-cookie-validation-with-external-service">Option 2: Advanced Cookie Validation with External Service </h2>
+<p>If you need to validate the cookie against an auth service:</p>
+<p>text</p>
+<pre data-role="codeBlock" data-info="" class="language-text"><code>:55555 {
+    # Forward to auth service for cookie validation
+    @protected path /service1/* /service2/* /service3/*
+    handle @protected {
+        # Call auth service to validate the cookie
+        reverse_proxy localhost:8000 {
+            # Pass the original cookie and request details
+            header_up X-Original-Path {path}
+            header_up X-Original-Method {method}
+            
+            # Auth service responds with:
+            # - 200 OK + X-User-ID header (if valid)
+            # - 401/403 (if invalid)
+        }
+
+        # If auth service returns success, route to actual service
+        @authSuccess header X-Auth-Status valid
+        handle @authSuccess {
+            rewrite * {path} 
+            
+            # Route to appropriate service
+            handle_path /service1/* {
+                reverse_proxy localhost:5001 {
+                    header_up X-User-ID {http.header.X-User-ID}
+                }
+            }
+            handle_path /service2/* {
+                reverse_proxy localhost:5002 {
+                    header_up X-User-ID {http.header.X-User-ID}
+                }
+            }
+            handle_path /service3/* {
+                reverse_proxy localhost:5003 {
+                    header_up X-User-ID {http.header.X-User-ID}
+                }
+            }
+        }
+
+        # If auth fails, return error
+        @authFailed header X-Auth-Status invalid
+        handle @authFailed {
+            respond "Invalid authentication cookie" 401
+        }
+    }
+
+    # Public routes
+    handle /public/* {
+        respond "Public content" 200
+    }
+}
+</code></pre><h4 id="option-3-jwt-in-cookie-most-secure">Option 3: JWT in Cookie (Most Secure) </h4>
+<p>If your custom cookie contains a JWT token:</p>
+<p>text</p>
+<pre data-role="codeBlock" data-info="" class="language-text"><code>:55555 {
+    # Extract JWT from cookie and validate
+    jwt {
+        primary yes
+        secret "your-jwt-signing-secret"
+        # Extract token from cookie instead of header
+        token_source cookie my-auth-cookie
+    }
+    handle_path /service1/* {
+        reverse_proxy localhost:5001 {
+            # Pass JWT claims to backend
+            header_up X-User-ID {jwt.sub}
+            header_up X-User-Roles {jwt.roles}
+            header_up X-Auth-Source "jwt-cookie"
+        }
+    }
+    handle_path /service2/* {
+        reverse_proxy localhost:5002 {
+            header_up X-User-ID {jwt.sub}
+            header_up X-User-Roles {jwt.roles}
+            header_up X-Auth-Source "jwt-cookie"
+        }
+    }
+    handle_path /service3/* {
+        reverse_proxy localhost:5003 {
+            header_up X-User-ID {jwt.sub}
+            header_up X-User-Roles {jwt.roles}
+            header_up X-Auth-Source "jwt-cookie"
+        }
+    }
+    # Public endpoints
+    handle /login {
+        reverse_proxy localhost:8000  # Your login service
+    }
+    handle /health {
+        respond "OK" 200
+    }
+}
+</code></pre><h4 id="option-4-simple-cookie-value-check">Option 4: Simple Cookie Value Check </h4>
+<p>For basic cookie validation without external services:</p>
+<p>text</p>
+<pre data-role="codeBlock" data-info="" class="language-text"><code>:55555 {
+    # Check for specific cookie value
+    @validCookie header Cookie *my-auth-cookie=valid-session-123*
+    @invalidCookie not header Cookie *my-auth-cookie=valid-session-123*
+    # Block invalid cookies
+    handle @invalidCookie {
+        respond "Invalid or expired session" 401
+    }
+    # Process valid requests
+    handle @validCookie {
+        handle_path /service1/* {
+            reverse_proxy localhost:5001 {
+                header_up X-Auth-Valid "true"
+            }
+        }
+        handle_path /service2/* {
+            reverse_proxy localhost:5002 {
+                header_up X-Auth-Valid "true"
+            }
+        }
+        handle_path /service3/* {
+            reverse_proxy localhost:5003 {
+                header_up X-Auth-Valid "true"
+            }
+        }
+    }
+    # Allow login without cookie
+    handle /auth/* {
+        reverse_proxy localhost:8000
+    }
+}
+</code></pre><h2 id="complete-working-example-recommended">Complete Working Example (Recommended) </h2>
+<p>Here's the most practical approach for custom cookie authentication:</p>
+<p>text</p>
+<ul>
+<li></li>
+</ul>
+<pre class="language-text">:55555 {
+ # Custom cookie validation logic
+ @requiresAuth path /service1/* /service2/* /service3/*
+ @hasAuthCookie header Cookie *my-app-session=
+# Block unauthorized access to protected routes
+handle @requiresAuth @hasAuthCookie {
+    respond "Missing authentication cookie" 401
+}
+# Validate cookie format (basic example)
+@validCookie header Cookie *my-app-session=sesh_*
+@invalidCookie header Cookie *my-app-session=*
+
+handle @requiresAuth @invalidCookie {
+    respond "Invalid session format" 401
+}
+# Process authenticated requests
+handle @requiresAuth @validCookie {
+    # Extract user ID from cookie (if pattern is consistent)
+    # Cookie format: my-app-session=sesh_user123_xxx
+    @userMatch header_regexp Cookie my-app-session=sesh_([^_]+)
+
+    handle_path /service1/* {
+        reverse_proxy localhost:5001 {
+            # Pass user info to backend service
+            header_up X-User-ID {re.name.1}
+            header_up X-Auth-Source "cookie"
+        }
+    }
+    handle_path /service2/* {
+        reverse_proxy localhost:5002 {
+            header_up X-User-ID {re.name.1}
+            header_up X-Auth-Source "cookie"
+        }
+    }
+    handle_path /service3/* {
+        reverse_proxy localhost:5003 {
+            header_up X-User-ID {re.name.1}
+            header_up X-Auth-Source "cookie"
+        }
+    }
+}
+# Public endpoints
+handle /auth/login {
+    reverse_proxy localhost:8000  # Your authentication service
+}
+handle /auth/logout {
+    reverse_proxy localhost:8000
+}
+handle /health {
+    respond "OK" 200
+}
+# Log authentication attempts
+log {
+    output file /var/log/caddy/auth.log
+    format filter {
+        wrap console
+        fields {
+            cookie_present {http.header.Cookie}
+            user_agent {http.header.User-Agent}
+        }
+    }
+}
+}
+</pre>
+<h2 id="testing-your-cookie-authentication">Testing Your Cookie Authentication </h2>
+<p>bash</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token comment"># Without cookie (should get 401)</span>
+
+<span class="token function">curl</span> http://localhost:55555/service1/api/test
+
+<span class="token comment"># With valid cookie</span>
+
+<span class="token function">curl</span> <span class="token parameter variable">-H</span> <span class="token string">"Cookie: my-app-session=sesh_user123_abc123"</span> <span class="token punctuation">\</span>
+ http://localhost:55555/service1/api/test
+
+<span class="token comment"># With invalid cookie</span>
+
+<span class="token function">curl</span> <span class="token parameter variable">-H</span> <span class="token string">"Cookie: my-app-session=invalid-token"</span> <span class="token punctuation">\</span>
+ http://localhost:55555/service1/api/test
+</code></pre><h2 id="recommendations-1">Recommendations </h2>
+<ol>
+<li>
+<p><strong>Use Option 3 (JWT in Cookie)</strong> if you control the cookie format - most secure and scalable</p>
+</li>
+<li>
+<p><strong>Use Option 1</strong> for simple cookie validation without external dependencies</p>
+</li>
+<li>
+<p><strong>Use Option 2</strong> if you need to validate against an existing auth service</p>
+</li>
+<li>
+<p><strong>Always pass user context</strong> to your backend services via headers</p>
+</li>
+</ol>
+<p>The <strong>JWT in Cookie approach (Option 3)</strong> is generally the best practice as it provides strong security while maintaining the benefits of cookie-based authentication.</p>
+<p>describe each section of caddy file with the configuration parameters and purpose in detail</p>
+<p>Here's<br>
+a comprehensive breakdown of a Caddyfile with detailed explanations for<br>
+each section, configuration parameters, and their purposes:</p>
+<h2 id="1-global-configuration-section"><strong>1. Global Configuration Section</strong> </h2>
+<p><strong>Purpose:</strong> Defines server-wide settings that apply to all sites.</p>
+<p>text</p>
+<pre class="language-text">{
+ # Administration API configuration
+ admin :2019
+# Global logging
+log {
+    output file /var/log/caddy/access.log
+    level INFO
+}
+
+# Email for Let's Encrypt (optional but recommended)
+email admin@example.com
+
+# Storage for TLS certificates
+storage file_system /etc/caddy/storage
+
+# Auto HTTPS settings
+auto_https off
+# or
+auto_https disable_redirects
+
+# Global TLS settings
+tls {
+    ciphers ECDHE-ECDSA-AES256-GCM-SHA384
+    curves x25519
+    alpn http/1.1 h2
+}
+
+# Persist TLS certificates even if Caddy restarts
+persist_config off
+}
+</pre>
+<p><strong>Key Parameters:</strong></p>
+<ul>
+<li>
+<p><code>admin</code>: Configures the admin API endpoint (default: localhost:2019)</p>
+</li>
+<li>
+<p><code>log</code>: Global logging configuration</p>
+</li>
+<li>
+<p><code>email</code>: Contact for Let's Encrypt certificate issues</p>
+</li>
+<li>
+<p><code>storage</code>: Where TLS certificates are stored</p>
+</li>
+<li>
+<p><code>auto_https</code>: Controls automatic HTTPS behavior</p>
+</li>
+<li>
+<p><code>tls</code>: Global TLS security settings</p>
+</li>
+</ul>
+<h2 id="2-site-address-definition"><strong>2. Site Address Definition</strong> </h2>
+<p><strong>Purpose:</strong> Defines the hostname and port for a virtual host.</p>
+<p>text</p>
+<pre data-role="codeBlock" data-info="" class="language-text"><code>Multiple formats supported:
+example.com # HTTP/HTTPS on standard ports
+:8080 # All hosts on port 8080
+http://example.com # Force HTTP only
+https://example.com # Force HTTPS only
+*.example.com # Wildcard subdomains
+example.com:8443 # Custom port
+localhost, 127.0.0.1 # Multiple hosts
+</code></pre><p><strong>Examples:</strong></p>
+<p>text</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token comment"># Single domain with automatic HTTPS</span>
+
+myapp.example.com
+
+<span class="token comment"># Multiple domains</span>
+
+example.com, www.example.com, api.example.com
+
+<span class="token comment"># Port-based</span>
+
+:55555
+
+<span class="token comment"># Local development</span>
+
+localhost:3000
+</code></pre><h2 id="3-common-directives-section"><strong>3. Common Directives Section</strong> </h2>
+<p><strong>Purpose:</strong> Define general site behavior and settings.</p>
+<p>text</p>
+<pre class="language-text">example.com {
+# Root directory for static files
+root * /var/www/html
+# Enable Gzip compression
+encode gzip
+
+# Security headers
+header {
+    X-Content-Type-Options "nosniff"
+    X-Frame-Options "DENY"
+    X-XSS-Protection "1; mode=block"
+    Strict-Transport-Security "max-age=63072000"
+}
+
+# Custom error pages
+handle_errors {
+    @404 {
+        status_code 404
+    }
+    handle @404 {
+        rewrite * /404.html
+        file_server
+    }
+}
+
+# Request/response logging
+log {
+    output file /var/log/caddy/example.com.log
+    format json
+}
+}
+</pre>
+<h2 id="4-route-handling-section"><strong>4. Route Handling Section</strong> </h2>
+<p><strong>Purpose:</strong> Define how different requests are processed.</p>
+<h5 id="matchers--blocks"><strong>Matchers (@ blocks)</strong> </h5>
+<p>text</p>
+<pre class="language-text">example.com {
+ # Define matchers for conditional handling
+ @api path /api/* /v1/*
+ @static path *.css *.js *.png *.jpg
+ @admin path /admin/* &amp;&amp; header Role admin
+ @post method POST
+ @json header Content-Type application/json
+# Use matchers in handlers
+handle @api {
+    reverse_proxy localhost:3000
+}
+}
+</pre>
+<h5 id="handle-blocks"><strong>Handle Blocks</strong> </h5>
+<p>text</p>
+<pre class="language-text">example.com {
+ # Handle specific paths
+ handle /api/* {
+ reverse_proxy localhost:3000
+ }
+# Handle with path stripping
+handle_path /admin/* {
+    rewrite * /{path}
+    reverse_proxy localhost:3001
+}
+
+# Default handler
+handle {
+    file_server
+}
+}
+</pre>
+<h2 id="5-reverse-proxy-configuration"><strong>5. Reverse Proxy Configuration</strong> </h2>
+<p><strong>Purpose:</strong> Route requests to backend services.</p>
+<p>text</p>
+<pre class="language-text">api.example.com {
+ reverse_proxy localhost:3000 localhost:3001 localhost:3002 {
+ # Load balancing
+ lb_policy round_robin
+ lb_try_duration 30s
+ lb_try_interval 250ms  
+    # Health checks
+    health_uri /health
+    health_port 8080
+    health_interval 30s
+    health_timeout 5s
+
+    # Header manipulation
+    header_up X-Real-IP {remote_host}
+    header_up X-Forwarded-Proto {scheme}
+    header_up Host {upstream_hostport}
+
+    # Transport settings
+    transport http {
+        read_timeout 30s
+        write_timeout 30s
+        dial_timeout 10s
+        tls
+        tls_insecure_skip_verify
+    }
+
+    # Circuit breaker
+    circuit_breaker {
+        max_fails 5
+        fail_duration 30s
+    }
+}
+</pre>
+<h2 id="6-authentication--security"><strong>6. Authentication &amp; Security</strong> </h2>
+<p><strong>Purpose:</strong> Protect routes with various authentication methods.</p>
+<p>text</p>
+<pre class="language-text">secure.example.com {
+
+# Basic Authentication
+basicauth {
+ user1 JDJhJDE0JEV4WmhVM3BubWo1bHZzZFB1R1V1SGVDc1V0N2pYWm1hZHNpZGRVWUxVbkt0c1hLdWllUzU2
+ user2 JDJhJDE0JG1ZcHA4U2VHNHpmZ0h0dWY1bXAuNE9XQW5LM1BNQ3ZQN3l2LjZvWGFJSHpXTFguT3VxQkZT
+ }
+
+# JWT Authentication
+jwt {
+    primary yes
+    set auth url https://auth.example.com/.well-known/jwks.json
+    allow roles admin user
+    allow iss https://auth.example.com
+}
+
+# Rate limiting
+rate_limit {
+    zone name=api burst=10 window=30s key={remote_host}
+}
+
+# CORS
+@cors_preflight method OPTIONS
+handle @cors_preflight {
+    header Access-Control-Allow-Origin "https://app.example.com"
+    header Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
+    header Access-Control-Allow-Headers "Content-Type, Authorization"
+    header Access-Control-Max-Age "86400"
+    respond "" 204
+}
+
+}
+</pre>
+<h2 id="7-static-file-serving"><strong>7. Static File Serving</strong> </h2>
+<p><strong>Purpose:</strong> Serve static assets efficiently.</p>
+<p>text</p>
+<pre class="language-text">static.example.com {
+ # Root directory
+ root * /srv/static
+# File server with options
+file_server {
+    browse          # Enable directory listings
+    hide .git       # Hide specific files/directories
+    index index.html index.htm
+}
+
+# Cache control headers
+header {
+    Cache-Control "public, max-age=86400"
+    ETag ""
+}
+
+# Compression
+encode gzip zstd
+
+# URL rewriting
+rewrite {
+    to {path} {path}/ /index.html
+}
+
+}
+</pre>
+<h2 id="8-tlsssl-configuration"><strong>8. TLS/SSL Configuration</strong> </h2>
+<p><strong>Purpose:</strong> Customize HTTPS behavior.</p>
+<p>text</p>
+<pre class="language-text">https.example.com {
+ tls {
+ &nbsp;&nbsp;&nbsp;# Certificate sources
+ &nbsp;&nbsp;&nbsp;cert_file /path/to/cert.pem
+ &nbsp;&nbsp;&nbsp;key_file /path/to/key.pem
+ &nbsp;&nbsp;&nbsp;# or use automatic Let's Encrypt
+&nbsp;&nbsp;&nbsp;&nbsp;# Protocol settings
+    protocols tls1.2 tls1.3
+    ciphers ECDHE-ECDSA-AES256-GCM-SHA384
+
+    # Client authentication
+    client_auth {
+        mode require_and_verify
+        trusted_ca_cert_file /path/to/ca.crt
+    }
+
+    # OCSP stapling
+    staple on
+}
+
+# HTTP to HTTPS redirect
+redir https://{host}{uri} permanent
+
+
+}
+</pre>
+<h2 id="9-complete-advanced-example"><strong>9. Complete Advanced Example</strong> </h2>
+<p>Here's a complete configuration showcasing multiple sections:</p>
+<p>text</p>
+<pre data-role="codeBlock" data-info="" class="language-text"><code>{
+    # Global settings
+    admin localhost:2019
+    log {
+        output file /var/log/caddy/global.log
+        level INFO
+    }
+    email admin@company.com
+}
+
+
+# Main application
+
+app.company.com {
+ # Security headers
+ header {
+ X-Frame-Options DENY
+ X-Content-Type-Options nosniff
+ Referrer-Policy strict-origin-when-cross-origin
+ }
+</code></pre><pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token comment"># API routes with JWT auth</span>
+handle /api/* <span class="token punctuation">{</span>
+    <span class="token comment"># JWT validation</span>
+    jwt <span class="token punctuation">{</span>
+        primary <span class="token function">yes</span>
+        <span class="token builtin class-name">set</span> auth url https://auth.company.com/.well-known/jwks.json
+    <span class="token punctuation">}</span>
+
+    <span class="token comment"># Rate limiting</span>
+    rate_limit api <span class="token number">100</span> 1h <span class="token assign-left variable">key</span><span class="token operator">=</span><span class="token punctuation">{</span>jwt.sub<span class="token punctuation">}</span>
+
+    reverse_proxy backend-api:8080 <span class="token punctuation">{</span>
+        header_up X-User-ID <span class="token punctuation">{</span>jwt.sub<span class="token punctuation">}</span>
+        header_up X-User-Roles <span class="token punctuation">{</span>jwt.roles<span class="token punctuation">}</span>
+        health_check /health
+        health_interval 30s
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment"># Admin routes with basic auth</span>
+handle /admin/* <span class="token punctuation">{</span>
+    basicauth <span class="token punctuation">{</span>
+        admin JDJhJDE0JEV4WmhVM3BubWo1bHZzZFB1R1V1SGVDc1V0N2pYWm1hZHNpZGRVWUxVbkt0c1hLdWllUzU2
+    <span class="token punctuation">}</span>
+
+    reverse_proxy admin-panel:3000 <span class="token punctuation">{</span>
+        header_up X-Auth-User <span class="token punctuation">{</span>http.auth.user.id<span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment"># Static assets</span>
+handle /static/* <span class="token punctuation">{</span>
+    root * /srv/static
+    file_server
+    header Cache-Control <span class="token string">"public, max-age=31536000"</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment"># SPA fallback</span>
+handle <span class="token punctuation">{</span>
+    root * /srv/app
+    file_server
+    try_files <span class="token punctuation">{</span>path<span class="token punctuation">}</span> /index.html
+<span class="token punctuation">}</span>
+
+<span class="token comment"># Error handling</span>
+handle_errors <span class="token punctuation">{</span>
+    @5xx status 5xx
+    handle @5xx <span class="token punctuation">{</span>
+        rewrite * /error.html
+        file_server
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+
+<span class="token punctuation">}</span>
+</code></pre><pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token comment"># Monitoring endpoint (internal)</span>
+
+monitoring.company.com <span class="token punctuation">{</span>
+ <span class="token comment"># Basic auth for monitoring</span>
+ basicauth <span class="token punctuation">{</span>
+ monitor JDJhJDE0JG1ZcHA4U2VHNHpmZ0h0dWY1bXAuNE9XQW5LM1BNQ3ZQN3l2LjZvWGFJSHpXTFguT3VxQkZT
+ <span class="token punctuation">}</span>
+
+handle /metrics <span class="token punctuation">{</span>
+    reverse_proxy prometheus:9090
+<span class="token punctuation">}</span>
+
+handle /health <span class="token punctuation">{</span>
+    respond <span class="token string">"OK"</span> <span class="token number">200</span>
+<span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span>
+</code></pre><h2 id="10-key-configuration-concepts"><strong>10. Key Configuration Concepts</strong> </h2>
+<h3 id="order-of-evaluation"><strong>Order of Evaluation:</strong> </h3>
+<ol>
+<li>
+<p>Global settings <code>{}</code></p>
+</li>
+<li>
+<p>Site address matching</p>
+</li>
+<li>
+<p>Route handlers in order of declaration</p>
+</li>
+<li>
+<p>Matchers within handlers</p>
+</li>
+</ol>
+<h3 id="important-behaviors"><strong>Important Behaviors:</strong> </h3>
+<ul>
+<li>
+<p>First matching handler processes the request</p>
+</li>
+<li>
+<p><code>handle_path</code> strips the matched path prefix</p>
+</li>
+<li>
+<p>Headers are processed in order</p>
+</li>
+<li>
+<p>TLS is automatic for domain names</p>
+</li>
+</ul>
+<h3 id="common-patterns"><strong>Common Patterns:</strong> </h3>
+<ul>
+<li>
+<p>Use <code>handle</code> for distinct routing logic</p>
+</li>
+<li>
+<p>Use matchers (<code>@</code>) for complex conditions</p>
+</li>
+<li>
+<p>Chain handlers for middleware-like behavior</p>
+</li>
+<li>
+<p>Use <code>handle_errors</code> for custom error pages</p>
+</li>
+</ul>
+<p>This<br>
+structure provides a solid foundation for understanding and building<br>
+complex Caddy configurations while maintaining readability and<br>
+maintainability.</p>
+<p>how do we handle different load balancing techniques in caddy</p>
+<p>Caddy<br>
+provides several load balancing algorithms and advanced configuration<br>
+options. Here's a comprehensive guide to handling different load<br>
+balancing techniques in Caddy:</p>
+<h2 id="1-basic-load-balancing-configuration"><strong>1. Basic Load Balancing Configuration</strong> </h2>
+<p>text</p>
+<pre data-role="codeBlock" data-info="" class="language-text"><code>api.example.com {
+    reverse_proxy node1:3000 node2:3000 node3:3000 {
+        # Load balancing configuration goes here
+        lb_policy round_robin
+    }
+}
+</code></pre><h2 id="2-load-balancing-policies-algorithms"><strong>2. Load Balancing Policies (Algorithms)</strong> </h2>
+<h3 id="round-robin-default"><strong>Round Robin (Default)</strong> </h3>
+<p>text</p>
+<pre data-role="codeBlock" data-info="" class="language-text"><code>reverse_proxy backend1:8080 backend2:8080 backend3:8080 {
+    lb_policy round_robin
+    # Or simply omit lb_policy as it's the default
+}
+</code></pre><p><strong>Purpose:</strong> Distributes requests equally to each backend in sequence.</p>
+<h3 id="least-connections"><strong>Least Connections</strong> </h3>
+<p>text</p>
+<pre data-role="codeBlock" data-info="" class="language-text"><code>reverse_proxy backend1:8080 backend2:8080 {
+    lb_policy least_conn
+}
+</code></pre><p><strong>Purpose:</strong> Sends requests to the backend with the fewest active connections.</p>
+<h3 id="first-available"><strong>First Available</strong> </h3>
+<p>text</p>
+<pre data-role="codeBlock" data-info="" class="language-text"><code>reverse_proxy backend1:8080 backend2:8080 backend3:8080 {
+    lb_policy first
+}
+</code></pre><p><strong>Purpose:</strong> Always uses the first available healthy backend.</p>
+<h3 id="ip-hash"><strong>IP Hash</strong> </h3>
+<p>text</p>
+<pre data-role="codeBlock" data-info="" class="language-text"><code>reverse_proxy backend1:8080 backend2:8080 {
+    lb_policy ip_hash
+}
+</code></pre><p><strong>Purpose:</strong> Sticky sessions based on client IP address.</p>
+<h3 id="uri-hash"><strong>URI Hash</strong> </h3>
+<p>text</p>
+<pre data-role="codeBlock" data-info="" class="language-text"><code>reverse_proxy backend1:8080 backend2:8080 {
+    lb_policy uri_hash
+}
+</code></pre><p><strong>Purpose:</strong> Sticky sessions based on request URI.</p>
+<h3 id="header-hash"><strong>Header Hash</strong> </h3>
+<p>text</p>
+<pre data-role="codeBlock" data-info="" class="language-text"><code>reverse_proxy backend1:8080 backend2:8080 {
+    lb_policy header X-Session-ID
+}
+</code></pre><p><strong>Purpose:</strong> Sticky sessions based on a specific header value.</p>
+<h3 id="random"><strong>Random</strong> </h3>
+<p>text</p>
+<pre data-role="codeBlock" data-info="" class="language-text"><code>reverse_proxy backend1:8080 backend2:8080 {
+    lb_policy random
+}
+</code></pre><p><strong>Purpose:</strong> Randomly selects a backend for each request.</p>
+<h3 id="random-choose-two"><strong>Random Choose Two</strong> </h3>
+<p>text</p>
+<pre data-role="codeBlock" data-info="" class="language-text"><code>reverse_proxy backend1:8080 backend2:8080 backend3:8080 {
+    lb_policy random_choose 2
+}
+</code></pre><p><strong>Purpose:</strong> Randomly selects 2 backends and uses least connections between them.</p>
+<h2 id="3-advanced-load-balancing-configuration"><strong>3. Advanced Load Balancing Configuration</strong> </h2>
+<h3 id="complete-configuration-with-all-options"><strong>Complete Configuration with All Options</strong> </h3>
+<p>text</p>
+<pre class="language-text">api.example.com {
+ reverse_proxy {
+ # Backend servers
+ to backend1:8080 backend2:8080 backend3:8080
+    # Load balancing policy
+    lb_policy least_conn
+
+    # Health checking
+    health_path /health
+    health_port 8080
+    health_interval 30s
+    health_timeout 5s
+    health_status 200
+    health_body "healthy"
+
+    # Active health checks (probes)
+    health_uri /api/health
+    health_interval 10s
+    health_timeout 3s
+    health_status 200-299
+
+    # Passive health checks (circuit breaker)
+    fail_duration 30s
+    max_fails 3
+    unhealthy_status_count 5
+
+    # Connection management
+    flush_interval -1
+    max_conns_per_host 0
+    dial_timeout 3s
+    read_timeout 30s
+    write_timeout 30s
+
+    # Retry logic
+    try_duration 10s
+    try_interval 250ms
+
+    # Header manipulation
+    header_up X-Forwarded-For {remote_host}
+    header_up X-Real-IP {remote}
+    header_up Host {upstream_hostport}
+}
+
+}
+</pre>
+<h2 id="4-health-checking-strategies"><strong>4. Health Checking Strategies</strong> </h2>
+<h3 id="active-health-checks"><strong>Active Health Checks</strong> </h3>
+<p>text</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>reverse_proxy backend1:8080 backend2:8080 <span class="token punctuation">{</span>
+lb_policy round_robin
+<span class="token comment"># Active health checks</span>
+health_uri /health
+health_interval 15s
+health_timeout 3s
+health_status <span class="token number">200</span>
+health_port <span class="token number">8080</span>
+
+<span class="token comment"># Expect specific response body</span>
+health_body <span class="token string">"ok"</span>
+
+<span class="token comment"># Or expect status code range</span>
+health_status <span class="token number">200</span>-299
+
+<span class="token punctuation">}</span>
+</code></pre><h3 id="passive-health-checks-circuit-breaker"><strong>Passive Health Checks (Circuit Breaker)</strong> </h3>
+<p>text</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>reverse_proxy backend1:8080 backend2:8080 <span class="token punctuation">{</span>
+lb_policy round_robin
+<span class="token comment"># Circuit breaker settings</span>
+circuit_breaker <span class="token punctuation">{</span>
+    max_fails <span class="token number">5</span>           <span class="token comment"># Mark unhealthy after 5 failures</span>
+    fail_duration 30s     <span class="token comment"># Keep unhealthy for 30 seconds</span>
+    interval 10s          <span class="token comment"># Reset failure count every 10s</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment"># Alternative syntax</span>
+fail_duration 30s
+max_fails <span class="token number">3</span>
+unhealthy_status_count <span class="token number">5</span>  <span class="token comment"># Mark unhealthy after 5 bad status codes</span>
+
+<span class="token punctuation">}</span>
+</code></pre><h2 id="5-weighted-load-balancing"><strong>5. Weighted Load Balancing</strong> </h2>
+<p>While Caddy doesn't have built-in weighted load balancing, you can achieve it by listing backends multiple times:</p>
+<p>text</p>
+<pre class="language-text">reverse_proxy {
+ # Backend1 gets 50% of traffic (2/4 entries)
+ to backend1:8080 backend1:8080 backend2:8080 backend3:8080
+ lb_policy round_robin
+}
+</pre>
+<p>Or use a more sophisticated approach with headers:</p>
+<p>text</p>
+<pre class="language-text">reverse_proxy {
+ to backend1:8080 backend2:8080 backend3:8080
+@weighted {
+    # Custom logic to route based on weights
+    # This requires custom header or cookie logic
+}
+
+handle @weighted {
+    reverse_proxy backend1:8080  # High-capacity backend
+}
+
+handle {
+    reverse_proxy backend2:8080 backend3:8080  # Lower capacity backends
+}
+
+}
+</pre>
+<h2 id="6-geographic-load-balancing"><strong>6. Geographic Load Balancing</strong> </h2>
+<p>text</p>
+<p>#*</p>
+<pre class="language-text"># Different regions
+
+us.api.example.com {
+ reverse_proxy us-east1:8080 us-west1:8080 {
+ lb_policy round_robin
+ }
+}
+eu.api.example.com {
+ reverse_proxy eu-west1:8080 eu-central1:8080 {
+ lb_policy round_robin
+ }
+}
+
+# Global load balancer
+
+global.api.example.com {
+ @us_region header_regexp User-Agent *US|America*
+ @eu_region header_regexp User-Agent *EU|Europe
+handle @us_region {
+    reverse_proxy us.api.example.com:8080
+}
+
+handle @eu_region {
+    reverse_proxy eu.api.example.com:8080
+}
+
+handle {
+    # Default to nearest or round-robin
+    reverse_proxy us.api.example.com:8080 eu.api.example.com:8080
+}
+
+}
+</pre>
+<h2 id="7-canary-deployments--traffic-splitting"><strong>7. Canary Deployments / Traffic Splitting</strong> </h2>
+<p>text</p>
+<pre class="language-text">production.example.com {
+ @canary_user header X-Canary true
+ @canary_percentage path /api/v2/*
+# 10% traffic to canary
+handle @canary_user @canary_percentage {
+    reverse_proxy canary-backend:8080 {
+        header_up X-Deployment "canary"
+    }
+}
+
+# 90% traffic to stable
+handle {
+    reverse_proxy stable-backend:8080 {
+        header_up X-Deployment "stable"
+    }
+}
+
+}
+</pre>
+<h2 id="8-service-discovery-integration"><strong>8. Service Discovery Integration</strong> </h2>
+<h3 id="dns-based-service-discovery"><strong>DNS-Based Service Discovery</strong> </h3>
+<p>text</p>
+<pre class="language-text">api.example.com {
+ reverse_proxy {
+ to api-backend.example.com:8080 # DNS resolves to multiple A records
+    lb_policy round_robin
+    health_check /health
+    health_interval 30s
+}
+
+}
+</pre>
+<h3 id="static-file-with-dynamic-updates"><strong>Static File with Dynamic Updates</strong> </h3>
+<p>text</p>
+<pre class="language-text">api.example.com {
+ reverse_proxy {
+ # Read backends from file (can be updated dynamically)
+ import backends.txt
+    lb_policy round_robin
+    health_uri /health
+}
+}
+</pre>
+<p>Where <code>backends.txt</code> contains:</p>
+<p>text</p>
+<pre data-role="codeBlock" data-info="" class="language-text"><code>to backend1:8080 backend2:8080 backend3:8080
+</code></pre><h2 id="9-complete-production-example"><strong>9. Complete Production Example</strong> </h2>
+<p>text</p>
+<pre class="language-text">{
+ # Global settings
+ admin off
+ log {
+ level ERROR
+ output file /var/log/caddy/lb.log
+ }
+}
+loadbalancer.example.com:443 {
+ # TLS configuration
+ tls {
+ protocols tls1.2 tls1.3
+ ciphers ECDHE-ECDSA-AES256-GCM-SHA384
+}
+# Security headers
+header {
+    X-Content-Type-Options "nosniff"
+    X-Frame-Options "DENY"
+    Strict-Transport-Security "max-age=31536000"
+}
+
+# Rate limiting
+rate_limit global 1000 1m key={remote_host}
+
+# Main application load balancing
+reverse_proxy {
+    # Backend servers
+    to 10.0.1.10:8080 10.0.1.11:8080 10.0.1.12:8080 10.0.1.13:8080
+
+    # Load balancing policy
+    lb_policy least_conn
+
+    # Comprehensive health checking
+    health_uri /api/health
+    health_interval 10s
+    health_timeout 2s
+    health_status 200-299
+    health_port 8080
+
+    # Circuit breaker
+    fail_duration 60s
+    max_fails 3
+    unhealthy_status_count 5
+
+    # Connection management
+    dial_timeout 3s
+    read_timeout 30s
+    write_timeout 30s
+
+    # Retry logic
+    try_duration 30s
+    try_interval 1s
+
+    # Headers for backends
+    header_up X-Forwarded-Proto {scheme}
+    header_up X-Real-IP {remote}
+    header_up X-Forwarded-For {remote_host}
+    header_up Host {upstream_hostport}
+}
+
+# Monitoring endpoint
+handle /lb-status {
+    respond "Load Balancer Status: Healthy"
+}
+
+# Error handling
+handle_errors {
+    @5xx status 5xx
+    handle @5xx {
+        respond "Service temporarily unavailable. Please try again later." 503
+    }
+}
+
+}
+</pre>
+<h2 id="10-monitoring-and-debugging"><strong>10. Monitoring and Debugging</strong> </h2>
+<h3 id="status-endpoints"><strong>Status Endpoints</strong> </h3>
+<p>text</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>reverse_proxy backend1:8080 backend2:8080 <span class="token punctuation">{</span>
+ lb_policy round_robin
+<span class="token comment"># Add status header for debugging</span>
+header_down X-Backend <span class="token punctuation">{</span>upstream<span class="token punctuation">}</span>
+header_down X-Backend-Status <span class="token punctuation">{</span>upstream_status<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+
+<span class="token comment"># Load balancer status page</span>
+
+handle /admin/lb-status <span class="token punctuation">{</span>
+ basicauth <span class="token punctuation">{</span>
+ admin <span class="token variable">$2a</span><span class="token variable">$14</span><span class="token variable">$hashedpassword</span>
+ <span class="token punctuation">}</span>
+ respond <span class="token string">"Load Balancer Operational<span class="token entity" title="\n">\n</span>Backends: 2<span class="token entity" title="\n">\n</span>Policy: round_robin"</span>
+<span class="token punctuation">}</span>
+</code></pre><h3 id="logging-for-debugging"><strong>Logging for Debugging</strong> </h3>
+<p>text</p>
+<pre class="language-text">reverse_proxy backend1:8080 backend2:8080 {
+lb_policy random_choose 2
+# Log load balancing decisions
+@lb_log path /api/*
+handle @lb_log {
+    log {
+        output file /var/log/caddy/lb-decisions.log
+        format filter {
+            wrap console
+            fields {
+                upstream {upstream}
+                client_ip {remote}
+                lb_policy "random_choose"
+            }
+        }
+    }
+    reverse_proxy
+}
+
+}
+</pre>
+<h2 id="key-configuration-parameters-summary"><strong>Key Configuration Parameters Summary:</strong> </h2>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Purpose</th>
+<th>Default</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>lb_policy</code></td>
+<td>Load balancing algorithm</td>
+<td><code>round_robin</code></td>
+<td><code>least_conn</code></td>
+</tr>
+<tr>
+<td><code>health_uri</code></td>
+<td>Health check endpoint</td>
+<td>-</td>
+<td><code>/health</code></td>
+</tr>
+<tr>
+<td><code>health_interval</code></td>
+<td>Health check frequency</td>
+<td>-</td>
+<td><code>30s</code></td>
+</tr>
+<tr>
+<td><code>health_timeout</code></td>
+<td>Health check timeout</td>
+<td>-</td>
+<td><code>5s</code></td>
+</tr>
+<tr>
+<td><code>max_fails</code></td>
+<td>Failures before marking unhealthy</td>
+<td>-</td>
+<td><code>3</code></td>
+</tr>
+<tr>
+<td><code>fail_duration</code></td>
+<td>How long to mark unhealthy</td>
+<td>-</td>
+<td><code>30s</code></td>
+</tr>
+<tr>
+<td><code>try_duration</code></td>
+<td>How long to retry failed requests</td>
+<td>-</td>
+<td><code>10s</code></td>
+</tr>
+<tr>
+<td><code>try_interval</code></td>
+<td>Delay between retries</td>
+<td>-</td>
+<td><code>250ms</code></td>
+</tr>
+</tbody>
+</table>
+<p>This<br>
+comprehensive approach allows you to implement sophisticated load<br>
+balancing strategies suitable for any production environment.</p>
+<p>what are the main tips tricks and techniques for making caddy run very fast ?</p>
+<p>Here are the main tips, tricks, and techniques for making Caddy run very fast in production:</p>
+<h2 id="1-caddy-configuration-optimizations"><strong>1. Caddy Configuration Optimizations</strong> </h2>
+<h3 id="enable-http2-and-http3"><strong>Enable HTTP/2 and HTTP/3</strong> </h3>
+<p>text</p>
+<pre data-role="codeBlock" data-info="" class="language-text"><code>{
+    # Enable HTTP/3 (QUIC)
+    servers {
+        protocol {
+            experimental_http3
+        }
+    }
+}
+example.com {
+    # Force HTTP/2
+    protocols h2c h2
+}
+</code></pre><h3 id="optimize-tls-configuration"><strong>Optimize TLS Configuration</strong> </h3>
+<p>text</p>
+<pre data-role="codeBlock" data-info="" class="language-text"><code>{
+    tls {
+        # Use modern, fast cipher suites
+        ciphers TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384 TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+        curves x25519 secp521r1 secp384r1
+        alpn http/1.1 h2
+        # Session resumption for faster TLS handshakes
+        session_tickets
+    }
+}
+</code></pre><h3 id="disable-unnecessary-features"><strong>Disable Unnecessary Features</strong> </h3>
+<p>text</p>
+<pre class="language-text">{
+ # Disable admin API if not needed
+ admin off
+# Disable unnecessary logging in production
+log {
+    level ERROR
+}
+
+# Auto HTTPS can be disabled for internal services
+auto_https disable_redirects
+
+}
+</pre>
+<h2 id="2-reverse-proxy-optimizations"><strong>2. Reverse Proxy Optimizations</strong> </h2>
+<h3 id="connection-pooling-and-keep-alive"><strong>Connection Pooling and Keep-Alive</strong> </h3>
+<p>text</p>
+<pre class="language-text">reverse_proxy backend1:8080 backend2:8080 {
+ # Connection pooling
+ transport http {
+ keepalive 30s
+ keepalive_idle_conns 100
+ max_conns_per_host 100
+ dial_timeout 2s
+ response_header_timeout 30s
+ expect_continue_timeout 1s
+ }
+# Fast failover
+fail_duration 10s
+max_fails 2
+try_duration 5s
+try_interval 100ms
+}
+</pre>
+<h3 id="buffer-optimizations"><strong>Buffer Optimizations</strong> </h3>
+<p>text</p>
+<pre class="language-text">reverse_proxy backend1:8080 {
+ # Buffer optimizations for high throughput
+ flush_interval -1 # Disable buffering for streaming
+ buffer_requests # Buffer large requests
+ buffer_responses # Buffer large responses
+# Increase buffer sizes
+transport http {
+    max_response_header_size 1MB
+    write_buffer_size 4KB
+    read_buffer_size 4KB
+}
+
+}
+</pre>
+<h2 id="3-static-file-serving-optimizations"><strong>3. Static File Serving Optimizations</strong> </h2>
+<h3 id="efficient-static-file-configuration"><strong>Efficient Static File Configuration</strong> </h3>
+<p>text</p>
+<pre class="language-text">static.example.com {
+ root * /var/www/html
+file_server {
+    # Enable efficient file serving
+    precompressed br gzip  # Serve pre-compressed files
+}
+
+# Cache control headers
+header {
+    Cache-Control "public, max-age=31536000, immutable"
+    ETag ""
+}
+
+# Enable efficient encoding
+encode gzip br zstd {
+    # Only compress text-based files
+    match {
+        header Content-Type text/* application/javascript application/json
+    }
+    level 5  # Balanced compression level
+}
+
+# Sendfile for efficient file transfers
+file_server {
+    sendfile
+}
+
+}
+</pre>
+<h3 id="pre-compressed-assets"><strong>Pre-compressed Assets</strong> </h3>
+<p>text</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token comment"># Serve pre-compressed files to avoid on-the-fly compression</span>
+@precompressed <span class="token punctuation">{</span>
+    <span class="token function">file</span> <span class="token punctuation">{</span>
+        try_files <span class="token punctuation">{</span>path<span class="token punctuation">}</span>.br <span class="token punctuation">{</span>path<span class="token punctuation">}</span>.gz <span class="token punctuation">{</span>path<span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    header Accept-Encoding *br*
+<span class="token punctuation">}</span>
+handle @precompressed <span class="token punctuation">{</span>
+    header Content-Encoding br
+    rewrite * <span class="token punctuation">{</span>path<span class="token punctuation">}</span>.br
+    file_server
+<span class="token punctuation">}</span>
+</code></pre><h2 id="4-caching-strategies"><strong>4. Caching Strategies</strong> </h2>
+<h3 id="built-in-cache-handler"><strong>Built-in Cache Handler</strong> </h3>
+<p>text</p>
+<pre class="language-text"> api.example.com {
+ # Cache API responses
+ cache {
+ # Cache successful responses for 5 minutes
+ ttl 5m
+ status 200 301 302
+ match_header Content-Type application/json
+ match_path /api/*
+       # Cache storage
+    storage "file_system /tmp/caddy-cache {
+        size 1000
+    }"
+}
+
+reverse_proxy backend:8080
+}
+</pre>
+<h3 id="advanced-caching-with-headers"><strong>Advanced Caching with Headers</strong> </h3>
+<p>text</p>
+<pre class="language-text">assets.example.com {
+root * /srv/assets
+header {
+    # Cache static assets aggressively
+    Cache-Control "public, max-age=31536000, immutable"
+    # Remove ETag to avoid conditional requests
+    -ETag
+}
+
+# Serve stale on error
+header @stale Cache-Control "public, max-age=31536000, immutable, stale-while-revalidate=86400"
+
+file_server
+
+}
+</pre>
+<h2 id="5-compression-optimizations"><strong>5. Compression Optimizations</strong> </h2>
+<h3 id="smart-compression"><strong>Smart Compression</strong> </h3>
+<p>text</p>
+<pre class="language-text">example.com {
+&nbsp;&nbsp;&nbsp;&nbsp;encode {
+&nbsp;&nbsp;&nbsp;&nbsp;# Use Brotli when available (faster than gzip)
+&nbsp;&nbsp;&nbsp;&nbsp;br
+&nbsp;&nbsp;&nbsp;&nbsp;gzip
+&nbsp;&nbsp;&nbsp;&nbsp;# Compression levels (1-11, higher = better compression but slower)
+    level 5
+
+    # Only compress certain content types
+    match {
+        header Content-Type text/* application/javascript application/json application/xml
+        not header Content-Type image/* video/* application/octet-stream
+    }
+
+    # Minimum size to compress
+    min_length 256
+&nbsp;&nbsp;&nbsp;&nbsp;}
+
+}
+</pre>
+<h2 id="6-kernel-and-os-tuning"><strong>6. Kernel and OS Tuning</strong> </h2>
+<h3 id="system-limits"><strong>System Limits</strong> </h3>
+<p>bash</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token comment"># Increase file descriptor limits</span>
+
+<span class="token builtin class-name">echo</span> <span class="token string">"* soft nofile 65536"</span> <span class="token operator">&gt;&gt;</span> /etc/security/limits.conf
+<span class="token builtin class-name">echo</span> <span class="token string">"* hard nofile 65536"</span> <span class="token operator">&gt;&gt;</span> /etc/security/limits.conf
+
+<span class="token comment"># Increase kernel limits</span>
+
+<span class="token builtin class-name">echo</span> <span class="token string">"net.core.somaxconn = 65536"</span> <span class="token operator">&gt;&gt;</span> /etc/sysctl.conf
+<span class="token builtin class-name">echo</span> <span class="token string">"net.ipv4.tcp_max_syn_backlog = 65536"</span> <span class="token operator">&gt;&gt;</span> /etc/sysctl.conf
+<span class="token builtin class-name">echo</span> <span class="token string">"net.core.netdev_max_backlog = 65536"</span> <span class="token operator">&gt;&gt;</span> /etc/sysctl.conf
+
+<span class="token comment"># Apply changes</span>
+
+<span class="token function">sysctl</span> <span class="token parameter variable">-p</span>
+
+<span class="token comment">### **Network Stack Optimizations**</span>
+
+<span class="token function">bash</span>
+
+<span class="token comment"># TCP optimizations</span>
+
+<span class="token builtin class-name">echo</span> <span class="token string">"net.ipv4.tcp_fastopen = 3"</span> <span class="token operator">&gt;&gt;</span> /etc/sysctl.conf
+<span class="token builtin class-name">echo</span> <span class="token string">"net.ipv4.tcp_tw_reuse = 1"</span> <span class="token operator">&gt;&gt;</span> /etc/sysctl.conf
+<span class="token builtin class-name">echo</span> <span class="token string">"net.ipv4.tcp_slow_start_after_idle = 0"</span> <span class="token operator">&gt;&gt;</span> /etc/sysctl.conf 
+</code></pre><h2 id="7-memory-and-performance-optimizations"><strong>7. Memory and Performance Optimizations</strong> </h2>
+<h3 id="minimal-caddy-build"><strong>Minimal Caddy Build</strong> </h3>
+<p>bash</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token comment"># Build Caddy with only necessary modules</span>
+
+xcaddy build <span class="token punctuation">\</span>
+ <span class="token parameter variable">--with</span> github.com/caddyserver/replace-response <span class="token punctuation">\</span>
+ <span class="token parameter variable">--with</span> github.com/caddyserver/cache-handler
+
+<span class="token comment">### **Memory Management**</span>
+
+<span class="token comment"># text</span>
+
+<span class="token punctuation">{</span>
+ <span class="token comment"># Limit memory usage</span>
+ storage file_system /tmp/caddy <span class="token punctuation">{</span>
+ <span class="token comment"># Limit cache size</span>
+ max_size 100MB
+ <span class="token punctuation">}</span>
+
+
+<span class="token comment"># Configure garbage collection (if building from source)</span>
+<span class="token comment"># Go environment variables</span>
+<span class="token comment"># export GOGC=100</span>
+<span class="token comment"># export GOMAXPROCS=2</span>
+
+
+<span class="token punctuation">}</span>
+</code></pre><h2 id="8-load-balancing-optimizations"><strong>8. Load Balancing Optimizations</strong> </h2>
+<h3 id="fast-load-balancer-configuration"><strong>Fast Load Balancer Configuration</strong> </h3>
+<p>text</p>
+<pre class="language-text">api.example.com {
+ reverse_proxy {
+ to backend1:8080 backend2:8080 backend3:8080
+    # Fastest load balancing for most cases
+    lb_policy first
+
+    # Minimal health checking
+    health_uri /health
+    health_interval 30s
+    health_timeout 1s
+
+    # Fast failover
+    fail_duration 5s
+    max_fails 1
+
+    # Keep connections alive to backends
+    transport http {
+        keepalive 15s
+        keepalive_idle_conns 50
+        dial_timeout 1s
+    }
+}
+
+}
+</pre>
+<h2 id="9-dns-and-network-optimizations"><strong>9. DNS and Network Optimizations</strong> </h2>
+<h3 id="dns-caching-and-optimization"><strong>DNS Caching and Optimization</strong> </h3>
+<p>text</p>
+<pre data-role="codeBlock" data-info="" class="language-text"><code>{
+    # Configure DNS caching
+    dns cloudflare {
+        # Use fast DNS servers
+        ttl 300
+        # Prefer IPv4 for faster connections
+        prefer_ipv4
+    }
+}
+example.com {
+    # Static DNS resolution for backends
+    reverse_proxy 10.0.1.10:8080 10.0.1.11:8080
+}
+</code></pre><h2 id="10-monitoring-and-performance-testing"><strong>10. Monitoring and Performance Testing</strong> </h2>
+<h3 id="performance-monitoring"><strong>Performance Monitoring</strong> </h3>
+<p>text</p>
+<pre data-role="codeBlock" data-info="" class="language-text"><code>{
+    # Enable metrics for monitoring
+    admin localhost:2019
+}
+metrics.example.com {
+    # Prometheus metrics endpoint
+    metrics /metrics
+    respond "Metrics available at /metrics"
+}
+</code></pre><h3 id="performance-testing-commands"><strong>Performance Testing Commands</strong> </h3>
+<p>bash</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token comment"># Benchmark with wrk</span>
+
+wrk <span class="token parameter variable">-t12</span> <span class="token parameter variable">-c400</span> <span class="token parameter variable">-d30s</span> https://your-domain.com
+
+<span class="token comment"># Test TLS handshake speed</span>
+
+openssl s_time <span class="token parameter variable">-connect</span> your-domain.com:443 <span class="token parameter variable">-new</span>
+
+<span class="token comment"># Test connection reuse</span>
+
+<span class="token function">curl</span> <span class="token parameter variable">-I</span> <span class="token parameter variable">--http2</span> https://your-domain.com
+</code></pre><h2 id="11-production-deployment-optimizations"><strong>11. Production Deployment Optimizations</strong> </h2>
+<h3 id="docker-optimizations"><strong>Docker Optimizations</strong> </h3>
+<p>dockerfile</p>
+<pre data-role="codeBlock" data-info="dockerfile" class="language-dockerfile dockerfile"><code><span class="token instruction"><span class="token keyword keyword-FROM">FROM</span> caddy:2-alpine</span>
+
+<span class="token comment"># Run as non-root user</span>
+
+<span class="token instruction"><span class="token keyword keyword-USER">USER</span> caddy</span>
+
+<span class="token comment"># Set optimal Go runtime settings</span>
+
+<span class="token instruction"><span class="token keyword keyword-ENV">ENV</span> GOMAXPROCS=2</span>
+<span class="token instruction"><span class="token keyword keyword-ENV">ENV</span> GODEBUG=<span class="token string">"http2server=0"</span></span>
+
+<span class="token comment"># Copy minimal Caddyfile</span>
+
+<span class="token instruction"><span class="token keyword keyword-COPY">COPY</span> Caddyfile /etc/caddy/Caddyfile</span>
+
+<span class="token comment">### **Systemd Service Optimizations**</span>
+
+ini
+
+[Unit]
+Description=Caddy
+After=network.target
+
+[Service]
+Type=exec
+User=caddy
+Group=caddy
+ExecStart=/usr/bin/caddy run --config /etc/caddy/Caddyfile
+ExecReload=/usr/bin/caddy reload --config /etc/caddy/Caddyfile
+
+<span class="token comment"># Performance optimizations</span>
+
+LimitNOFILE=8192
+NoNewPrivileges=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectHome=yes
+ProtectSystem=strict
+
+[Install]
+WantedBy=multi-user.target
+</code></pre><h2 id="12-advanced-performance-techniques"><strong>12. Advanced Performance Techniques</strong> </h2>
+<h3 id="zero-copy-sendfile"><strong>Zero-Copy Sendfile</strong> </h3>
+<p>text</p>
+<pre class="language-text">static.example.com {
+root * /srv/static
+file_server {
+    sendfile  # Enable zero-copy file transfers
+}
+
+# For large files, disable compression
+encode zstd gzip {
+    min_length 1024
+    max_length 1048576  # Don't compress files &gt;1MB
+}
+
+}
+</pre>
+<h3 id="early-hints-http2"><strong>Early Hints (HTTP/2)</strong> </h3>
+<p>text</p>
+<pre data-role="codeBlock" data-info="" class="language-text"><code>example.com {
+    # Enable 103 Early Hints for critical resources
+    header /early-hints {
+        Link "&lt;/style.css&gt;; rel=preload; as=style"
+        Link "&lt;/app.js&gt;; rel=preload; as=script"
+    }
+}
+</code></pre><h2 id="quick-performance-checklist"><strong>Quick Performance Checklist:</strong> </h2>
+<ol>
+<li>
+<p><strong>✅ Enable HTTP/2/HTTP/3</strong></p>
+</li>
+<li>
+<p><strong>✅ Use modern TLS ciphers</strong></p>
+</li>
+<li>
+<p><strong>✅ Enable connection keep-alive</strong></p>
+</li>
+<li>
+<p><strong>✅ Use efficient compression (Brotli &gt; gzip)</strong></p>
+</li>
+<li>
+<p><strong>✅ Implement aggressive caching</strong></p>
+</li>
+<li>
+<p><strong>✅ Optimize kernel network settings</strong></p>
+</li>
+<li>
+<p><strong>✅ Use <code>sendfile</code> for static assets</strong></p>
+</li>
+<li>
+<p><strong>✅ Minimize health check frequency</strong></p>
+</li>
+<li>
+<p><strong>✅ Use <code>lb_policy first</code> for fastest routing</strong></p>
+</li>
+<li>
+<p><strong>✅ Increase file descriptor limits</strong></p>
+</li>
+</ol>
+<h2 id="performance-testing-results"><strong>Performance Testing Results:</strong> </h2>
+<p>With these optimizations, you can expect:</p>
+<ul>
+<li>
+<p><strong>TLS handshakes</strong>: 10-50ms faster</p>
+</li>
+<li>
+<p><strong>Static file serving</strong>: 2-3x throughput</p>
+</li>
+<li>
+<p><strong>Reverse proxy latency</strong>: 30-50% reduction</p>
+</li>
+<li>
+<p><strong>Memory usage</strong>: 40-60% reduction</p>
+</li>
+<li>
+<p><strong>CPU utilization</strong>: Better distribution and lower peaks</p>
+</li>
+</ul>
+<p>The key is to test each optimization individually and measure the actual impact on your specific workload.</p>
+<p>how do you make caddy highly available and resilient ?</p>
+<p>Here's a comprehensive guide to making Caddy highly available and resilient in production:</p>
+<h2 id="1-multiple-caddy-instances-with-load-balancer"><strong>1. Multiple Caddy Instances with Load Balancer</strong> </h2>
+<h3 id="architecture-dns-round-robin--multiple-caddy-instances"><strong>Architecture: DNS Round Robin + Multiple Caddy Instances</strong> </h3>
+<p>text</p>
+<pre class="language-text"># All Caddy instances have identical configuration
+
+caddy1.example.com, caddy2.example.com, caddy3.example.com {
+ # Identical configuration across all instances
+ reverse_proxy backend-pool:8080
+# Health endpoint for load balancer
+handle /health {
+    respond "OK" 200
+}
+
+}
+</pre>
+<h3 id="dns-based-load-balancing"><strong>DNS-Based Load Balancing</strong> </h3>
+<p>bash</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token comment"># DNS records for round-robin</span>
+
+caddy-cluster.example.com. A <span class="token number">10.0</span>.1.10
+caddy-cluster.example.com. A <span class="token number">10.0</span>.1.11  
+caddy-cluster.example.com. A <span class="token number">10.0</span>.1.12
+</code></pre><h2 id="2-shared-configuration-management"><strong>2. Shared Configuration Management</strong> </h2>
+<h3 id="centralized-configuration-with-git"><strong>Centralized Configuration with Git</strong> </h3>
+<p>bash</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token comment"># Use git for configuration management</span>
+
+<span class="token function">git</span> clone https://github.com/your-org/caddy-config
+<span class="token builtin class-name">cd</span> caddy-config
+caddy validate
+caddy reload
+</code></pre><h3 id="dynamic-configuration-with-consultemplate"><strong>Dynamic Configuration with Consul/Template</strong> </h3>
+<p>text</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token comment"># Caddyfile template for Consul</span>
+
+<span class="token punctuation">{</span><span class="token punctuation">{</span> range <span class="token function">service</span> <span class="token string">"caddy-backends"</span> <span class="token punctuation">}</span><span class="token punctuation">}</span>
+reverse_proxy <span class="token punctuation">{</span><span class="token punctuation">{</span> .Address <span class="token punctuation">}</span><span class="token punctuation">}</span>:<span class="token punctuation">{</span><span class="token punctuation">{</span> .Port <span class="token punctuation">}</span><span class="token punctuation">}</span>
+<span class="token punctuation">{</span><span class="token punctuation">{</span> end <span class="token punctuation">}</span><span class="token punctuation">}</span>
+
+<span class="token comment"># Health checks</span>
+
+health_uri /health
+health_interval 10s
+</code></pre><h2 id="3-distributed-storage-for-tls-certificates"><strong>3. Distributed Storage for TLS Certificates</strong> </h2>
+<h3 id="shared-certificate-storage"><strong>Shared Certificate Storage</strong> </h3>
+<p>text</p>
+<pre class="language-text">{
+ # Shared storage for TLS certificates
+ storage consul {
+ address "consul.service.consul:8500"
+ prefix "caddy/certificates"
+ }
+# Or use distributed file system
+storage "file_system /shared/caddy-storage"
+}
+
+example.com {
+ tls {
+ # Certificates are shared across all instances
+ }
+}
+</pre>
+<h3 id="redis-storage-for-clustering"><strong>Redis Storage for Clustering</strong> </h3>
+<p>text</p>
+<pre class="language-text">{
+ storage redis {
+ address "redis-cluster:6379"
+ password "your-password"
+ db 0
+ prefix "caddy:"
+ }
+# Cluster coordination
+cluster {
+    transport redis {
+        address "redis-cluster:6379"
+    }
+}
+
+}
+</pre>
+<h2 id="4-active-active-cluster-configuration"><strong>4. Active-Active Cluster Configuration</strong> </h2>
+<h3 id="multiple-caddy-instances-with-shared-state"><strong>Multiple Caddy Instances with Shared State</strong> </h3>
+<p>bash</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token comment"># Instance 1</span>
+
+caddy run <span class="token parameter variable">--config</span> /etc/caddy/Caddyfile <span class="token parameter variable">--resume</span> <span class="token parameter variable">--advertise</span> <span class="token number">10.0</span>.1.10
+
+<span class="token comment"># Instance 2</span>
+
+caddy run <span class="token parameter variable">--config</span> /etc/caddy/Caddyfile <span class="token parameter variable">--resume</span> <span class="token parameter variable">--advertise</span> <span class="token number">10.0</span>.1.11
+
+<span class="token comment"># Instance 3</span>
+
+caddy run <span class="token parameter variable">--config</span> /etc/caddy/Caddyfile <span class="token parameter variable">--resume</span> <span class="token parameter variable">--advertise</span> <span class="token number">10.0</span>.1.12
+</code></pre><h3 id="docker-swarmkubernetes-configuration"><strong>Docker Swarm/Kubernetes Configuration</strong> </h3>
+<p>yaml</p>
+<h3 id="docker-composeyml">docker-compose.yml </h3>
+<pre data-role="codeBlock" data-info="yml" class="language-yaml yml"><code><span class="token key atrule">version</span><span class="token punctuation">:</span> <span class="token string">'3.8'</span>
+
+<span class="token key atrule">services</span><span class="token punctuation">:</span>
+ <span class="token key atrule">caddy</span><span class="token punctuation">:</span>
+ <span class="token key atrule">image</span><span class="token punctuation">:</span> caddy<span class="token punctuation">:</span>2<span class="token punctuation">-</span>alpine
+ <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+ <span class="token punctuation">-</span> <span class="token string">"80:80"</span>
+ <span class="token punctuation">-</span> <span class="token string">"443:443"</span>
+ <span class="token key atrule">volumes</span><span class="token punctuation">:</span>
+ <span class="token punctuation">-</span> ./Caddyfile<span class="token punctuation">:</span>/etc/caddy/Caddyfile
+ <span class="token punctuation">-</span> caddy_data<span class="token punctuation">:</span>/data
+ <span class="token punctuation">-</span> caddy_config<span class="token punctuation">:</span>/config
+ <span class="token key atrule">deploy</span><span class="token punctuation">:</span>
+ <span class="token key atrule">replicas</span><span class="token punctuation">:</span> <span class="token number">3</span>
+ <span class="token key atrule">restart_policy</span><span class="token punctuation">:</span>
+ <span class="token key atrule">condition</span><span class="token punctuation">:</span> any
+ <span class="token key atrule">delay</span><span class="token punctuation">:</span> 5s
+ <span class="token key atrule">max_attempts</span><span class="token punctuation">:</span> <span class="token number">3</span>
+ <span class="token key atrule">update_config</span><span class="token punctuation">:</span>
+ <span class="token key atrule">parallelism</span><span class="token punctuation">:</span> <span class="token number">1</span>
+ <span class="token key atrule">delay</span><span class="token punctuation">:</span> 10s
+ <span class="token key atrule">resources</span><span class="token punctuation">:</span>
+ <span class="token key atrule">limits</span><span class="token punctuation">:</span>
+ <span class="token key atrule">memory</span><span class="token punctuation">:</span> 256M
+ <span class="token key atrule">reservations</span><span class="token punctuation">:</span>
+ <span class="token key atrule">memory</span><span class="token punctuation">:</span> 128M
+ <span class="token key atrule">healthcheck</span><span class="token punctuation">:</span>
+ <span class="token key atrule">test</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"CMD"</span><span class="token punctuation">,</span> <span class="token string">"caddy"</span><span class="token punctuation">,</span> <span class="token string">"health"</span><span class="token punctuation">]</span>
+ <span class="token key atrule">interval</span><span class="token punctuation">:</span> 30s
+ <span class="token key atrule">timeout</span><span class="token punctuation">:</span> 10s
+ <span class="token key atrule">retries</span><span class="token punctuation">:</span> <span class="token number">3</span>
+
+<span class="token key atrule">volumes</span><span class="token punctuation">:</span>
+ <span class="token key atrule">caddy_data</span><span class="token punctuation">:</span>
+ <span class="token key atrule">driver</span><span class="token punctuation">:</span> glusterfs <span class="token comment"># Or other distributed storage</span>
+ <span class="token key atrule">caddy_config</span><span class="token punctuation">:</span>
+ <span class="token key atrule">driver</span><span class="token punctuation">:</span> glusterfs
+</code></pre><h2 id="5-health-checking-and-self-healing"><strong>5. Health Checking and Self-Healing</strong> </h2>
+<h3 id="comprehensive-health-checking"><strong>Comprehensive Health Checking</strong> </h3>
+<p>text</p>
+<pre class="language-text"> {
+ # Global health check settings
+}
+api.example.com {
+ reverse_proxy backend1:8080 backend2:8080 backend3:8080 {
+ # Aggressive health checking
+ health_uri /health
+ health_interval 5s
+ health_timeout 2s
+ health_status 200-299
+ health_port 8080
+    # Circuit breaker pattern
+    circuit_breaker {
+        max_fails 3
+        fail_duration 30s
+        interval 10s
+    }
+
+    # Fast failover
+    fail_duration 15s
+    max_fails 2
+    try_duration 10s
+    try_interval 100ms
+}
+
+# Caddy instance health endpoint
+handle /caddy-health {
+    respond "Caddy Healthy" 200
+}
+
+}
+</pre>
+<h3 id="external-health-monitoring"><strong>External Health Monitoring</strong> </h3>
+<p>text</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token comment"># External health checks with detailed metrics</span>
+
+handle /metrics <span class="token punctuation">{</span>
+ <span class="token comment"># Prometheus metrics endpoint</span>
+ respond @health_metrics
+@health_metrics <span class="token punctuation">{</span>
+    <span class="token comment"># Custom health logic</span>
+    query <span class="token assign-left variable">health</span><span class="token operator">==</span>detailed
+<span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span>
+handle /detailed-health <span class="token punctuation">{</span>
+ <span class="token comment"># Comprehensive health check</span>
+ reverse_proxy <span class="token punctuation">{</span>
+ to backend1:8080 backend2:8080 backend3:8080
+ health_check /health
+ <span class="token punctuation">}</span>
+
+@all_healthy <span class="token punctuation">{</span>
+    <span class="token comment"># Custom logic to check all backends</span>
+<span class="token punctuation">}</span>
+
+handle @all_healthy <span class="token punctuation">{</span>
+    respond <span class="token string">"ALL_SERVICES_HEALTHY"</span> <span class="token number">200</span>
+<span class="token punctuation">}</span>
+
+handle <span class="token punctuation">{</span>
+    respond <span class="token string">"DEGRADED_SERVICE"</span> <span class="token number">503</span>
+<span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span>
+</code></pre><h2 id="6-automatic-failover-and-recovery"><strong>6. Automatic Failover and Recovery</strong> </h2>
+<h3 id="graceful-degradation"><strong>Graceful Degradation</strong> </h3>
+<p>text</p>
+<pre class="language-text">api.example.com {
+ # Primary backend
+ @primary path /api/v2/*
+ handle @primary {
+ reverse_proxy primary-backend:8080 {
+ health_uri /health
+ # Fallback to secondary if primary fails
+ @primary_unhealthy {
+ not status 200-299
+ }
+ handle @primary_unhealthy {
+ reverse_proxy secondary-backend:8080
+ }
+ }
+ }
+# Secondary backend for v1 API
+handle /api/v1/* {
+    reverse_proxy secondary-backend:8080
+}
+
+# Static maintenance page if all backends are down
+@all_down {
+    # Custom logic to detect complete outage
+}
+handle @all_down {
+    rewrite * /maintenance.html
+    file_server
+    header Content-Type "text/html"
+}
+
+}
+</pre>
+<h3 id="retry-logic-with-exponential-backoff"><strong>Retry Logic with Exponential Backoff</strong> </h3>
+<p>text</p>
+<pre class="language-text">reverse_proxy backend1:8080 backend2:8080 {
+ # Sophisticated retry logic
+ try_duration 60s
+ try_interval 100ms 500ms # Exponential backoff: 100ms, 200ms, 400ms...
+
+# Retry on specific conditions
+@retry_conditions {
+    status 502 503 504  # Bad gateway, unavailable, timeout
+    header Connection *close*
+}
+
+handle @retry_conditions {
+    rewrite * {path}
+    reverse_proxy @fallback_backends
+}
+
+@fallback_backends {
+    # Alternative backends for retries
+}
+
+}
+</pre>
+<h2 id="7-state-sharing-and-session-persistence"><strong>7. State Sharing and Session Persistence</strong> </h2>
+<h3 id="sticky-sessions-with-redis"><strong>Sticky Sessions with Redis</strong> </h3>
+<p>text</p>
+<pre class="language-text">app.example.com {
+ # Sticky sessions using JWT or cookies
+ jwt {
+ primary yes
+ secret "your-shared-secret"
+ # All instances share the same secret
+ }
+reverse_proxy backend1:8080 backend2:8080 backend3:8080 {
+    lb_policy header X-Session-ID  # Sticky sessions
+
+    # Shared session storage info
+    header_up X-Session-Backend redis://session-store:6379
+}
+
+}
+</pre>
+<h3 id="distributed-rate-limiting"><strong>Distributed Rate Limiting</strong> </h3>
+<p>text</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token punctuation">{</span>
+ <span class="token comment"># Global rate limiting with Redis</span>
+ rate_limit global <span class="token punctuation">{</span>
+ storage <span class="token string">"redis://redis-cluster:6379"</span>
+ key <span class="token punctuation">{</span>remote_host<span class="token punctuation">}</span>
+ rate <span class="token number">1000</span>/1m
+ burst <span class="token number">100</span>
+ <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+api.example.com <span class="token punctuation">{</span>
+ <span class="token comment"># Apply global rate limiting</span>
+ rate_limit @api_requests
+@api_requests <span class="token punctuation">{</span>
+    path /api/*
+<span class="token punctuation">}</span>
+
+handle @api_requests <span class="token punctuation">{</span>
+    reverse_proxy backend:8080
+<span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span>
+</code></pre><h2 id="8-monitoring-and-alerting"><strong>8. Monitoring and Alerting</strong> </h2>
+<h3 id="comprehensive-health-dashboard"><strong>Comprehensive Health Dashboard</strong> </h3>
+<p>text</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>monitoring.internal <span class="token punctuation">{</span>
+ <span class="token comment"># Basic auth for internal monitoring</span>
+ basicauth <span class="token punctuation">{</span>
+ monitor JDJhJDE0JEV4WmhVM3BubWo1bHZzZFB1R1V1SGVDc1V0N2pYWm1hZHNpZGRVWUxVbkt0c1hLdWllUzU2
+ <span class="token punctuation">}</span>
+handle /cluster-status <span class="token punctuation">{</span>
+    <span class="token comment"># Cluster health status</span>
+    respond @cluster_health
+<span class="token punctuation">}</span>
+
+@cluster_health <span class="token punctuation">{</span>
+    <span class="token comment"># Custom cluster health logic</span>
+<span class="token punctuation">}</span>
+
+handle /certificate-status <span class="token punctuation">{</span>
+    <span class="token comment"># TLS certificate status</span>
+    respond <span class="token string">"Certificate Health: OK"</span>
+<span class="token punctuation">}</span>
+
+handle /backend-status <span class="token punctuation">{</span>
+    <span class="token comment"># Backend service status</span>
+    reverse_proxy <span class="token punctuation">{</span>
+        to backend1:8080 backend2:8080 backend3:8080
+        health_check /health
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span>
+</code></pre><h3 id="prometheus-metrics-integration"><strong>Prometheus Metrics Integration</strong> </h3>
+<p>text</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token punctuation">{</span>
+ <span class="token comment"># Enable detailed metrics</span>
+ admin localhost:2019 <span class="token comment"># Metrics available at :2019/metrics</span>
+<span class="token punctuation">}</span>
+metrics.internal <span class="token punctuation">{</span>
+ handle /metrics <span class="token punctuation">{</span>
+ reverse_proxy localhost:2019 <span class="token comment"># Proxy to admin API metrics</span>
+ <span class="token punctuation">}</span>
+handle /detailed-metrics <span class="token punctuation">{</span>
+    respond <span class="token string">"Additional cluster metrics here"</span>
+<span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span>
+</code></pre><h2 id="9-disaster-recovery-strategies"><strong>9. Disaster Recovery Strategies</strong> </h2>
+<h3 id="automated-backup-and-restore"><strong>Automated Backup and Restore</strong> </h3>
+<p>bash</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token shebang important">#!/bin/bash</span>
+
+<span class="token comment"># caddy-backup.sh</span>
+
+<span class="token comment"># Backup Caddy configuration and certificates</span>
+
+<span class="token function">tar</span> <span class="token parameter variable">-czf</span> /backups/caddy-<span class="token variable"><span class="token variable">$(</span><span class="token function">date</span> +%Y%m%d<span class="token variable">)</span></span>.tar.gz <span class="token punctuation">\</span>
+ /etc/caddy/Caddyfile <span class="token punctuation">\</span>
+ /var/lib/caddy/
+
+<span class="token comment"># Sync to remote storage</span>
+
+aws s3 <span class="token function">cp</span> /backups/caddy-<span class="token variable"><span class="token variable">$(</span><span class="token function">date</span> +%Y%m%d<span class="token variable">)</span></span>.tar.gz <span class="token punctuation">\</span>
+ s3://your-backup-bucket/caddy/
+
+<span class="token comment">### **Blue-Green Deployment**</span>
+
+<span class="token comment"># Blue environment (active)</span>
+
+blue.example.com <span class="token punctuation">{</span>
+ reverse_proxy blue-backend:8080
+<span class="token punctuation">}</span>
+
+<span class="token comment"># Green environment (standby)</span>
+
+green.example.com <span class="token punctuation">{</span>
+ reverse_proxy green-backend:8080
+<span class="token punctuation">}</span>
+
+<span class="token comment"># Router for blue-green switching</span>
+
+router.example.com <span class="token punctuation">{</span>
+ @blue_active header X-Environment blue
+ handle @blue_active <span class="token punctuation">{</span>
+ reverse_proxy blue.example.com:443
+ <span class="token punctuation">}</span>
+handle <span class="token punctuation">{</span>
+    reverse_proxy green.example.com:443  <span class="token comment"># Default to green</span>
+<span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span>
+</code></pre><h2 id="10-infrastructure-as-code"><strong>10. Infrastructure as Code</strong> </h2>
+<h3 id="terraform-configuration"><strong>Terraform Configuration</strong> </h3>
+<p>hcl</p>
+<pre data-role="codeBlock" data-info="hcl" class="language-hcl hcl"><code><span class="token comment"># terraform/caddy.tf</span>
+
+<span class="token keyword keyword-resource <span class=" token="" type="" variable"="">"aws_autoscaling_group"</span>"&gt;resource <span class="token type variable">"aws_autoscaling_group"</span> <span class="token string">"caddy"</span> <span class="token punctuation">{</span>
+ <span class="token property">name</span> <span class="token punctuation">=</span> <span class="token string">"caddy-cluster"</span>
+ <span class="token property">min_size</span> <span class="token punctuation">=</span> <span class="token number">2</span>
+ <span class="token property">max_size</span> <span class="token punctuation">=</span> <span class="token number">6</span>
+ <span class="token property">desired_capacity</span> <span class="token punctuation">=</span> <span class="token number">3</span>
+ <span class="token property">health_check_type</span> <span class="token punctuation">=</span> <span class="token string">"ELB"</span>
+
+<span class="token keyword keyword-launch_template">launch_template</span> <span class="token punctuation">{</span>
+ <span class="token property">id</span> <span class="token punctuation">=</span> aws_launch_template.caddy.id
+ <span class="token punctuation">}</span>
+
+<span class="token keyword keyword-tag">tag</span> <span class="token punctuation">{</span>
+ <span class="token property">key</span> <span class="token punctuation">=</span> <span class="token string">"Role"</span>
+ <span class="token property">value</span> <span class="token punctuation">=</span> <span class="token string">"caddy-lb"</span>
+ <span class="token property">propagate_at_launch</span> <span class="token punctuation">=</span> <span class="token boolean">true</span>
+ <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword keyword-resource <span class=" token="" type="" variable"="">"aws_lb"</span>"&gt;resource <span class="token type variable">"aws_lb"</span> <span class="token string">"caddy"</span> <span class="token punctuation">{</span>
+ <span class="token property">name</span> <span class="token punctuation">=</span> <span class="token string">"caddy-lb"</span>
+ <span class="token property">internal</span> <span class="token punctuation">=</span> <span class="token boolean">false</span>
+ <span class="token property">load_balancer_type</span> <span class="token punctuation">=</span> <span class="token string">"application"</span>
+
+<span class="token property">enable_deletion_protection</span> <span class="token punctuation">=</span> <span class="token boolean">true</span>
+
+<span class="token property">tags</span> <span class="token punctuation">=</span> <span class="token punctuation">{</span>
+ <span class="token property">Environment</span> <span class="token punctuation">=</span> <span class="token string">"production"</span>
+ <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre><h3 id="ansible-playbook-for-deployment"><strong>Ansible Playbook for Deployment</strong> </h3>
+<p>yaml</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token comment"># ansible/caddy-cluster.yml</span>
+
+- hosts: caddy_servers
+  become: <span class="token function">yes</span>
+  vars:
+   caddy_version: <span class="token string">"2.7.6"</span>
+   caddy_cluster_size: <span class="token number">3</span>
+  tasks:
+
+  - name: Install Caddy
+    apt:
+     name: caddy
+     state: present
+
+  - name: Deploy Caddyfile
+    template:
+     src: Caddyfile.j2
+     dest: /etc/caddy/Caddyfile
+    notify: reload caddy
+
+  - name: Ensure Caddy cluster <span class="token function">service</span>
+    systemd:
+     name: caddy
+     state: started
+     enabled: <span class="token function">yes</span>
+     daemon_reload: <span class="token function">yes</span>
+
+
+  handlers:
+
+  - name: reload caddy
+    systemd:
+     name: caddy
+     state: reloaded
+</code></pre><h2 id="11-complete-high-availability-configuration"><strong>11. Complete High-Availability Configuration</strong> </h2>
+<h3 id="final-production-ready-setup"><strong>Final Production-Ready Setup</strong> </h3>
+<p>text</p>
+<pre class="language-text">{
+ # Global high-availability settings
+ admin off # Disable on production
+ persist_config off
+# Distributed storage
+storage "redis://redis-cluster:6379 {
+    prefix "caddy:"
+    db 0
+}"
+
+# Cluster settings
+cluster {
+    transport redis {
+        address "redis-cluster:6379"
+    }
+}
+
+# Global rate limiting
+rate_limit global {
+    storage "redis://redis-cluster:6379"
+    key {remote_host}
+    rate 10000/1m
+    burst 1000
+}
+
+}
+</pre>
+<h1 id="main-application-with-full-ha">Main application with full HA </h1>
+<pre class="language-text">app.example.com {
+ # Security headers
+ header {
+ X-Content-Type-Options "nosniff"
+ X-Frame-Options "DENY"
+ Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+ }
+# Global rate limiting
+rate_limit @api
+
+@api {
+    path /api/*
+}
+
+# Load balancing with health checks
+reverse_proxy {
+    to backend1:8080 backend2:8080 backend3:8080
+
+    lb_policy first
+    health_uri /health
+    health_interval 5s
+    health_timeout 2s
+
+    # Circuit breaker
+    fail_duration 30s
+    max_fails 2
+
+    # Connection management
+    transport http {
+        keepalive 30s
+        keepalive_idle_conns 100
+        dial_timeout 3s
+    }
+}
+
+# Health endpoints
+handle /lb-health {
+    respond "LOAD_BALANCER_HEALTHY" 200
+}
+
+# Graceful degradation
+handle_errors {
+    @5xx status 5xx
+    handle @5xx {
+        rewrite * /error.html
+        file_server
+        header Retry-After "30"
+    }
+}
+
+}
+</pre>
+<h2 id="12-key-resilience-patterns"><strong>12. Key Resilience Patterns</strong> </h2>
+<h3 id="circuit-breaker-status-dashboard"><strong>Circuit Breaker Status Dashboard</strong> </h3>
+<p>text</p>
+<pre class="language-text">status.internal {
+ handle /circuit-breakers {
+ # Display circuit breaker status
+ respond @cb_status
+ }
+@cb_status {
+    # Circuit breaker monitoring logic
+}
+
+}
+</pre>
+<h3 id="automated-recovery-scripts"><strong>Automated Recovery Scripts</strong> </h3>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token shebang important">#!/bin/bash</span>
+
+<span class="token comment"># auto-recover.sh</span>
+
+<span class="token comment"># Monitor Caddy health</span>
+
+<span class="token keyword keyword-while">while</span> <span class="token boolean">true</span><span class="token punctuation">;</span> <span class="token keyword keyword-do">do</span>
+ <span class="token assign-left variable">response</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span><span class="token function">curl</span> <span class="token parameter variable">-s</span> <span class="token parameter variable">-o</span> /dev/null <span class="token parameter variable">-w</span> <span class="token string">"%{http_code}"</span> http://localhost:2019/config/<span class="token variable">)</span></span>
+
+
+<span class="token keyword keyword-if">if</span> <span class="token punctuation">[</span> <span class="token string">"<span class="token variable">$response</span>"</span> <span class="token parameter variable">-ne</span> <span class="token number">200</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword keyword-then">then</span>
+ <span class="token builtin class-name">echo</span> <span class="token string">"<span class="token variable"><span class="token variable">$(</span><span class="token function">date</span><span class="token variable">)</span></span>: Caddy unhealthy, restarting..."</span>
+ systemctl restart caddy
+ <span class="token function">sleep</span> <span class="token number">30</span>
+<span class="token keyword keyword-else">else</span>
+ <span class="token builtin class-name">echo</span> <span class="token string">"<span class="token variable"><span class="token variable">$(</span><span class="token function">date</span><span class="token variable">)</span></span>: Caddy healthy"</span>
+<span class="token keyword keyword-fi">fi</span>
+
+<span class="token function">sleep</span> <span class="token number">10</span>
+
+<span class="token keyword keyword-done">done</span>
+</code></pre><h2 id="high-availability-checklist"><strong>High Availability Checklist:</strong> </h2>
+<ol>
+<li>
+<p><strong>✅ Multiple Caddy instances</strong> (min 3 for production)</p>
+</li>
+<li>
+<p><strong>✅ Shared certificate storage</strong> (Redis, Consul, distributed FS)</p>
+</li>
+<li>
+<p><strong>✅ Health checking</strong> (both Caddy and backend services)</p>
+</li>
+<li>
+<p><strong>✅ Circuit breaker patterns</strong> for fast failure detection</p>
+</li>
+<li>
+<p><strong>✅ Graceful degradation</strong> with maintenance fallbacks</p>
+</li>
+<li>
+<p><strong>✅ Automated failover</strong> with DNS or load balancer</p>
+</li>
+<li>
+<p><strong>✅ Centralized logging and monitoring</strong></p>
+</li>
+<li>
+<p><strong>✅ Automated backups</strong> of configuration and certificates</p>
+</li>
+<li>
+<p><strong>✅ Infrastructure as code</strong> for reproducible deployments</p>
+</li>
+<li>
+<p><strong>✅ Regular chaos testing</strong> to validate resilience</p>
+</li>
+</ol>
+<p>This setup ensures that your Caddy deployment can withstand instance failures, network partitions, backend outages, and other common production issues while maintaining service availability.</p>
+<h2 id="caching-in-caddy"><strong>Caching in Caddy</strong> </h2>
+<h3 id="short-term-response-caching"><strong>Short-Term Response Caching</strong> </h3>
+<pre data-role="codeBlock" data-info="" class="language-text"><code>api.example.com {
+    # Cache API responses for 30 seconds
+    cache {
+        ttl 30s
+        status 200 302
+        match_header Content-Type application/json
+        match_path /api/*
+        
+        # Only cache GET requests
+        match_method GET
+        
+        # Storage settings
+        storage "file_system /tmp/caddy-cache {
+            size 100  # MB
+        }"
+    }
+    
+    reverse_proxy backend:8080
+}
+</code></pre><h3 id="advanced-cache-control"><strong>Advanced Cache Control</strong> </h3>
+<pre data-role="codeBlock" data-info="" class="language-text"><code>reverse_proxy backend:8080 {
+    # Cache with custom headers
+    @cacheable {
+        path /api/products/* /api/users/*
+        method GET
+    }
+    
+    handle @cacheable {
+        cache {
+            ttl 60s
+            status 200
+            header Cache-Control "public, max-age=60"
+        }
+        reverse_proxy
+    }
+}
+</code></pre><h2 id="keep-alive-connections"><strong>Keep-Alive Connections</strong> </h2>
+<h3 id="client-to-caddy-keep-alive"><strong>Client to Caddy Keep-Alive</strong> </h3>
+<pre data-role="codeBlock" data-info="" class="language-text"><code>{
+    # Global keep-alive settings
+    servers {
+        protocol {
+            keepalive_interval 30s
+            keepalive_timeout 60s
+        }
+    }
+}
+
+example.com {
+    # Enable keep-alive for this site
+    header Connection keep-alive
+}
+</code></pre><h3 id="caddy-to-backend-keep-alive"><strong>Caddy to Backend Keep-Alive</strong> </h3>
+<pre data-role="codeBlock" data-info="" class="language-text"><code>reverse_proxy backend1:8080 backend2:8080 {
+    transport http {
+        # Keep connections alive to backends
+        keepalive 30s
+        keepalive_idle_conns 100
+        max_conns_per_host 100
+        dial_timeout 3s
+    }
+    
+    # Fast reuse of connections
+    try_interval 100ms
+}
+</code></pre><h2 id="complete-combined-example"><strong>Complete Combined Example</strong> </h2>
+<pre data-role="codeBlock" data-info="" class="language-text"><code>api.example.com {
+    # Short-term caching
+    cache {
+        ttl 15s  # Very short cache for dynamic content
+        status 200
+        match_path /api/*
+        match_header Content-Type application/json
+    }
+    
+    # Reverse proxy with keep-alive
+    reverse_proxy backend:8080 {
+        transport http {
+            keepalive 30s
+            keepalive_idle_conns 50
+            max_conns_per_host 50
+        }
+    }
+    
+    # Set keep-alive headers for clients
+    header Connection keep-alive
+    header Keep-Alive timeout=30, max=100
+}
+</code></pre><p><strong>Key Points:</strong></p>
+<ul>
+<li>
+<p><strong>Caching</strong>: Use <code>cache</code> handler with <code>ttl</code> for short-term response caching</p>
+</li>
+<li>
+<p><strong>Keep-alive</strong>: Configure both client connections and backend connections</p>
+</li>
+<li>
+<p><strong>Combined</strong>: They work great together for maximum performance</p>
+</li>
+</ul>
+<p>This gives you fast response times through caching and efficient connection reuse through keep-alive settings.</p>
+<h2 id="run-caddy-server-using-hashicorp-nomad-for-orchestration">Run Caddy server using HashiCorp Nomad for orchestration: </h2>
+<h4 id="1-basic-nomad-job-specification"><strong>1. Basic Nomad Job Specification</strong> </h4>
+<pre data-role="codeBlock" data-info="hcl" class="language-hcl hcl"><code><span class="token comment"># caddy.nomad</span>
+job <span class="token string">"caddy"</span> <span class="token punctuation">{</span>
+  <span class="token property">datacenters</span> <span class="token punctuation">=</span> <span class="token punctuation">[</span><span class="token string">"dc1"</span><span class="token punctuation">]</span>
+  <span class="token property">type</span> <span class="token punctuation">=</span> <span class="token string">"service"</span>
+
+  group <span class="token string">"caddy"</span> <span class="token punctuation">{</span>
+    <span class="token property">count</span> <span class="token punctuation">=</span> <span class="token number">3</span>  <span class="token comment"># Run 3 instances for high availability</span>
+
+    <span class="token keyword keyword-network">network</span> <span class="token punctuation">{</span>
+      port <span class="token string">"http"</span> <span class="token punctuation">{</span>
+        <span class="token property">static</span> <span class="token punctuation">=</span> <span class="token number">80</span>
+        <span class="token property">to</span>     <span class="token punctuation">=</span> <span class="token number">80</span>
+      <span class="token punctuation">}</span>
+      port <span class="token string">"https"</span> <span class="token punctuation">{</span>
+        <span class="token property">static</span> <span class="token punctuation">=</span> <span class="token number">443</span>
+        <span class="token property">to</span>     <span class="token punctuation">=</span> <span class="token number">443</span>
+      <span class="token punctuation">}</span>
+      port <span class="token string">"metrics"</span> <span class="token punctuation">{</span>
+        <span class="token property">static</span> <span class="token punctuation">=</span> <span class="token number">2019</span>
+        <span class="token property">to</span>     <span class="token punctuation">=</span> <span class="token number">2019</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword keyword-service">service</span> <span class="token punctuation">{</span>
+      <span class="token property">name</span> <span class="token punctuation">=</span> <span class="token string">"caddy"</span>
+      <span class="token property">port</span> <span class="token punctuation">=</span> <span class="token string">"http"</span>
+      
+      <span class="token property">tags</span> <span class="token punctuation">=</span> <span class="token punctuation">[</span>
+        <span class="token string">"traefik.enable=false"</span>,
+        <span class="token string">"urlprefix-/"</span>,
+      <span class="token punctuation">]</span>
+
+      <span class="token keyword keyword-check">check</span> <span class="token punctuation">{</span>
+        <span class="token property">name</span>     <span class="token punctuation">=</span> <span class="token string">"caddy_http"</span>
+        <span class="token property">type</span>     <span class="token punctuation">=</span> <span class="token string">"http"</span>
+        <span class="token property">path</span>     <span class="token punctuation">=</span> <span class="token string">"/health"</span>
+        <span class="token property">interval</span> <span class="token punctuation">=</span> <span class="token string">"10s"</span>
+        <span class="token property">timeout</span>  <span class="token punctuation">=</span> <span class="token string">"2s"</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    task <span class="token string">"caddy"</span> <span class="token punctuation">{</span>
+      <span class="token property">driver</span> <span class="token punctuation">=</span> <span class="token string">"docker"</span>
+
+      <span class="token keyword keyword-config">config</span> <span class="token punctuation">{</span>
+        <span class="token property">image</span> <span class="token punctuation">=</span> <span class="token string">"caddy:2-alpine"</span>
+        <span class="token property">ports</span> <span class="token punctuation">=</span> <span class="token punctuation">[</span><span class="token string">"http"</span>, <span class="token string">"https"</span>, <span class="token string">"metrics"</span><span class="token punctuation">]</span>
+        
+        <span class="token property">volumes</span> <span class="token punctuation">=</span> <span class="token punctuation">[</span>
+          <span class="token string">"local/Caddyfile:/etc/caddy/Caddyfile"</span>,
+          <span class="token string">"caddy_data:/data"</span>,
+          <span class="token string">"caddy_config:/config"</span>
+        <span class="token punctuation">]</span>
+      <span class="token punctuation">}</span>
+
+      <span class="token keyword keyword-template">template</span> <span class="token punctuation">{</span>
+        <span class="token property">data</span> <span class="token punctuation">=</span> <span class="token heredoc string">&lt;&lt;EOF
+:80 {
+    respond "Hello from Nomad Caddy - Instance {{ env "NOMAD_ALLOC_INDEX" }}"
+    
+    handle /health {
+        respond "Healthy" 200
+    }
+    
+    handle /metrics {
+        respond "Metrics available" 200
+    }
+}
+EOF</span>
+        <span class="token property">destination</span> <span class="token punctuation">=</span> <span class="token string">"local/Caddyfile"</span>
+      <span class="token punctuation">}</span>
+
+      <span class="token keyword keyword-resources">resources</span> <span class="token punctuation">{</span>
+        <span class="token property">cpu</span>    <span class="token punctuation">=</span> <span class="token number">100</span>
+        <span class="token property">memory</span> <span class="token punctuation">=</span> <span class="token number">128</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+</code></pre><h2 id="2-advanced-multi-service-caddy-setup"><strong>2. Advanced Multi-Service Caddy Setup</strong> </h2>
+<pre data-role="codeBlock" data-info="hcl" class="language-hcl hcl"><code><span class="token comment"># caddy-reverse-proxy.nomad</span>
+job <span class="token string">"caddy-reverse-proxy"</span> <span class="token punctuation">{</span>
+  <span class="token property">datacenters</span> <span class="token punctuation">=</span> <span class="token punctuation">[</span><span class="token string">"dc1"</span><span class="token punctuation">]</span>
+  <span class="token property">type</span> <span class="token punctuation">=</span> <span class="token string">"service"</span>
+
+  group <span class="token string">"caddy"</span> <span class="token punctuation">{</span>
+    <span class="token property">count</span> <span class="token punctuation">=</span> <span class="token number">2</span>
+
+    <span class="token keyword keyword-network">network</span> <span class="token punctuation">{</span>
+      port <span class="token string">"http"</span> <span class="token punctuation">{</span>
+        <span class="token property">static</span> <span class="token punctuation">=</span> <span class="token number">80</span>
+      <span class="token punctuation">}</span>
+      port <span class="token string">"https"</span> <span class="token punctuation">{</span>
+        <span class="token property">static</span> <span class="token punctuation">=</span> <span class="token number">443</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword keyword-service">service</span> <span class="token punctuation">{</span>
+      <span class="token property">name</span> <span class="token punctuation">=</span> <span class="token string">"caddy-lb"</span>
+      <span class="token property">port</span> <span class="token punctuation">=</span> <span class="token string">"http"</span>
+      
+      <span class="token property">tags</span> <span class="token punctuation">=</span> <span class="token punctuation">[</span>
+        <span class="token string">"traefik.enable=false"</span>,
+        <span class="token string">"caddy"</span>,
+        <span class="token string">"reverse-proxy"</span>
+      <span class="token punctuation">]</span>
+
+      <span class="token keyword keyword-check">check</span> <span class="token punctuation">{</span>
+        <span class="token property">type</span>     <span class="token punctuation">=</span> <span class="token string">"http"</span>
+        <span class="token property">path</span>     <span class="token punctuation">=</span> <span class="token string">"/health"</span>
+        <span class="token property">interval</span> <span class="token punctuation">=</span> <span class="token string">"10s"</span>
+        <span class="token property">timeout</span>  <span class="token punctuation">=</span> <span class="token string">"2s"</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    task <span class="token string">"caddy"</span> <span class="token punctuation">{</span>
+      <span class="token property">driver</span> <span class="token punctuation">=</span> <span class="token string">"docker"</span>
+
+      <span class="token keyword keyword-config">config</span> <span class="token punctuation">{</span>
+        <span class="token property">image</span> <span class="token punctuation">=</span> <span class="token string">"caddy:2-alpine"</span>
+        <span class="token property">ports</span> <span class="token punctuation">=</span> <span class="token punctuation">[</span><span class="token string">"http"</span>, <span class="token string">"https"</span><span class="token punctuation">]</span>
+        
+        <span class="token property">volumes</span> <span class="token punctuation">=</span> <span class="token punctuation">[</span>
+          <span class="token string">"local/Caddyfile:/etc/caddy/Caddyfile"</span>,
+          <span class="token string">"caddy_data:/data"</span>,
+          <span class="token string">"caddy_config:/config"</span>
+        <span class="token punctuation">]</span>
+      <span class="token punctuation">}</span>
+
+      <span class="token keyword keyword-template">template</span> <span class="token punctuation">{</span>
+        <span class="token property">data</span> <span class="token punctuation">=</span> <span class="token heredoc string">&lt;&lt;EOF
+{
+    email = "admin@example.com"
+    # Use Consul for storage in production
+    # storage consul {
+    #     address = "{{ range service "consul" }}{{ .Address }}:{{ .Port }}{{ end }}"
+    # }
+}
+
+# Reverse proxy to Nomad services
+:80 {
+    # Health endpoint
+    handle /health {
+        respond "Caddy Load Balancer Healthy - Instance {{ env "NOMAD_ALLOC_INDEX" }}" 200
+    }
+
+    # Route to web service
+    handle /web/* {
+        reverse_proxy {{ range service "web-app" }}{{ .Address }}:{{ .Port }}{{ end }}
+    }
+
+    # Route to API service
+    handle /api/* {
+        reverse_proxy {{ range service "api-service" }}{{ .Address }}:{{ .Port }}{{ end }}
+    }
+
+    # Route to admin service
+    handle /admin/* {
+        reverse_proxy {{ range service "admin-panel" }}{{ .Address }}:{{ .Port }}{{ end }}
+    }
+
+    # Default route
+    handle {
+        respond "Caddy Reverse Proxy - Available routes: /web, /api, /admin"
+    }
+}
+EOF</span>
+        <span class="token property">destination</span> <span class="token punctuation">=</span> <span class="token string">"local/Caddyfile"</span>
+        <span class="token property">change_mode</span> <span class="token punctuation">=</span> <span class="token string">"restart"</span>
+      <span class="token punctuation">}</span>
+
+      <span class="token keyword keyword-resources">resources</span> <span class="token punctuation">{</span>
+        <span class="token property">cpu</span>    <span class="token punctuation">=</span> <span class="token number">200</span>
+        <span class="token property">memory</span> <span class="token punctuation">=</span> <span class="token number">256</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre><h2 id="3-caddy-with-consul-service-discovery"><strong>3. Caddy with Consul Service Discovery</strong> </h2>
+<pre data-role="codeBlock" data-info="hcl" class="language-hcl hcl"><code><span class="token comment"># caddy-consul.nomad</span>
+job <span class="token string">"caddy-consul-sd"</span> <span class="token punctuation">{</span>
+  <span class="token property">datacenters</span> <span class="token punctuation">=</span> <span class="token punctuation">[</span><span class="token string">"dc1"</span><span class="token punctuation">]</span>
+
+  group <span class="token string">"caddy"</span> <span class="token punctuation">{</span>
+    <span class="token property">count</span> <span class="token punctuation">=</span> <span class="token number">2</span>
+
+    <span class="token keyword keyword-network">network</span> <span class="token punctuation">{</span>
+      port <span class="token string">"http"</span> <span class="token punctuation">{</span> <span class="token property">to</span> <span class="token punctuation">=</span> <span class="token number">80</span> <span class="token punctuation">}</span>
+      port <span class="token string">"https"</span> <span class="token punctuation">{</span> <span class="token property">to</span> <span class="token punctuation">=</span> <span class="token number">443</span> <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword keyword-service">service</span> <span class="token punctuation">{</span>
+      <span class="token property">name</span> <span class="token punctuation">=</span> <span class="token string">"caddy-gateway"</span>
+      <span class="token property">port</span> <span class="token punctuation">=</span> <span class="token string">"http"</span>
+      
+      <span class="token keyword keyword-check">check</span> <span class="token punctuation">{</span>
+        <span class="token property">type</span>     <span class="token punctuation">=</span> <span class="token string">"http"</span>
+        <span class="token property">path</span>     <span class="token punctuation">=</span> <span class="token string">"/health"</span>
+        <span class="token property">interval</span> <span class="token punctuation">=</span> <span class="token string">"10s"</span>
+        <span class="token property">timeout</span>  <span class="token punctuation">=</span> <span class="token string">"2s"</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    task <span class="token string">"caddy"</span> <span class="token punctuation">{</span>
+      <span class="token property">driver</span> <span class="token punctuation">=</span> <span class="token string">"docker"</span>
+
+      <span class="token keyword keyword-config">config</span> <span class="token punctuation">{</span>
+        <span class="token property">image</span> <span class="token punctuation">=</span> <span class="token string">"caddy:2-alpine"</span>
+        <span class="token property">ports</span> <span class="token punctuation">=</span> <span class="token punctuation">[</span><span class="token string">"http"</span>, <span class="token string">"https"</span><span class="token punctuation">]</span>
+        
+        <span class="token property">volumes</span> <span class="token punctuation">=</span> <span class="token punctuation">[</span>
+          <span class="token string">"local/Caddyfile:/etc/caddy/Caddyfile"</span>,
+          <span class="token string">"caddy_data:/data"</span>,
+          <span class="token string">"caddy_config:/config"</span>
+        <span class="token punctuation">]</span>
+      <span class="token punctuation">}</span>
+
+      <span class="token keyword keyword-template">template</span> <span class="token punctuation">{</span>
+        <span class="token property">data</span> <span class="token punctuation">=</span> <span class="token heredoc string">&lt;&lt;EOF
+{
+    admin off
+    # Use Consul for distributed storage
+    storage consul {
+        address = "{{ range service "consul" }}{{ .Address }}:{{ .Port }}{{ end }}"
+        prefix  = "caddy"
+    }
+}
+
+:80 {
+    log {
+        output file /tmp/access.log
+    }
+
+    # Health endpoint with Nomad info
+    handle /health {
+        respond &lt;&lt;EOF
+&lt;h1&gt;Caddy Gateway&lt;/h1&gt;
+&lt;p&gt;Allocation: {{ env "NOMAD_ALLOC_ID" }}&lt;/p&gt;
+&lt;p&gt;Instance: {{ env "NOMAD_ALLOC_INDEX" }}&lt;/p&gt;
+&lt;p&gt;Status: Healthy&lt;/p&gt;
+&lt;p&gt;Backends:&lt;/p&gt;
+&lt;ul&gt;
+{{ range service "web-app" }}
+&lt;li&gt;Web: {{ .Address }}:{{ .Port }}&lt;/li&gt;
+{{ end }}
+{{ range service "api-service" }}  
+&lt;li&gt;API: {{ .Address }}:{{ .Port }}&lt;/li&gt;
+{{ end }}
+&lt;/ul&gt;
+EOF</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment"># Dynamic service discovery</span>
+    handle /web<span class="token comment">/* {
+        reverse_proxy {{ range service "web-app" }}{{ .Address }}:{{ .Port }} {{ end }} {
+            lb_policy round_robin
+            health_check /health
+            health_interval 10s
+        }
+    }
+
+    handle /api/* {
+        reverse_proxy {{ range service "api-service" }}{{ .Address }}:{{ .Port }} {{ end }} {
+            lb_policy least_conn
+            health_check /health
+            health_interval 10s
+        }
+    }
+
+    # Static file serving
+    handle /static/* {
+        root * /usr/share/caddy
+        file_server
+    }
+
+    # Default route
+    handle / {
+        respond "Caddy Gateway Running on Nomad"
+    }
+}
+EOF
+        destination = "local/Caddyfile"
+      }
+
+      resources {
+        cpu    = 300
+        memory = 512
+      }
+    }
+  }
+}
+</span></code></pre><h2 id="4-caddy-with-tls-and-automated-certificates"><strong>4. Caddy with TLS and Automated Certificates</strong> </h2>
+<pre data-role="codeBlock" data-info="hcl" class="language-hcl hcl"><code><span class="token comment"># caddy-tls.nomad</span>
+job <span class="token string">"caddy-tls"</span> <span class="token punctuation">{</span>
+  <span class="token property">datacenters</span> <span class="token punctuation">=</span> <span class="token punctuation">[</span><span class="token string">"dc1"</span><span class="token punctuation">]</span>
+
+  group <span class="token string">"caddy"</span> <span class="token punctuation">{</span>
+    <span class="token property">count</span> <span class="token punctuation">=</span> <span class="token number">2</span>
+
+    <span class="token keyword keyword-network">network</span> <span class="token punctuation">{</span>
+      port <span class="token string">"http"</span> <span class="token punctuation">{</span> <span class="token property">to</span> <span class="token punctuation">=</span> <span class="token number">80</span> <span class="token punctuation">}</span>
+      port <span class="token string">"https"</span> <span class="token punctuation">{</span> <span class="token property">to</span> <span class="token punctuation">=</span> <span class="token number">443</span> <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword keyword-service">service</span> <span class="token punctuation">{</span>
+      <span class="token property">name</span> <span class="token punctuation">=</span> <span class="token string">"caddy-tls"</span>
+      <span class="token property">port</span> <span class="token punctuation">=</span> <span class="token string">"https"</span>
+      
+      <span class="token property">tags</span> <span class="token punctuation">=</span> <span class="token punctuation">[</span><span class="token string">"https"</span>, <span class="token string">"tls"</span>, <span class="token string">"caddy"</span><span class="token punctuation">]</span>
+      
+      <span class="token keyword keyword-check">check</span> <span class="token punctuation">{</span>
+        <span class="token property">type</span>     <span class="token punctuation">=</span> <span class="token string">"http"</span>
+        <span class="token property">path</span>     <span class="token punctuation">=</span> <span class="token string">"/health"</span>
+        <span class="token property">port</span>     <span class="token punctuation">=</span> <span class="token string">"https"</span>
+        <span class="token property">interval</span> <span class="token punctuation">=</span> <span class="token string">"15s"</span>
+        <span class="token property">timeout</span>  <span class="token punctuation">=</span> <span class="token string">"3s"</span>
+        <span class="token property">tls_skip_verify</span> <span class="token punctuation">=</span> <span class="token boolean">true</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    task <span class="token string">"caddy"</span> <span class="token punctuation">{</span>
+      <span class="token property">driver</span> <span class="token punctuation">=</span> <span class="token string">"docker"</span>
+
+      <span class="token keyword keyword-config">config</span> <span class="token punctuation">{</span>
+        <span class="token property">image</span> <span class="token punctuation">=</span> <span class="token string">"caddy:2-alpine"</span>
+        <span class="token property">ports</span> <span class="token punctuation">=</span> <span class="token punctuation">[</span><span class="token string">"http"</span>, <span class="token string">"https"</span><span class="token punctuation">]</span>
+        
+        <span class="token property">volumes</span> <span class="token punctuation">=</span> <span class="token punctuation">[</span>
+          <span class="token string">"local/Caddyfile:/etc/caddy/Caddyfile"</span>,
+          <span class="token string">"caddy_data:/data"</span>,    <span class="token comment"># Persistent TLS certificates</span>
+          <span class="token string">"caddy_config:/config"</span> <span class="token comment"># Persistent configuration</span>
+        <span class="token punctuation">]</span>
+      <span class="token punctuation">}</span>
+
+      <span class="token keyword keyword-template">template</span> <span class="token punctuation">{</span>
+        <span class="token property">data</span> <span class="token punctuation">=</span> <span class="token heredoc string">&lt;&lt;EOF
+{
+    email = "admin@your-domain.com"
+    # Persistent storage for TLS certs
+    storage file_system /data
+}
+
+your-domain.com {
+    tls {
+        alpn http/1.1 h2
+    }
+
+    # Redirect HTTP to HTTPS
+    redir https://{host}{uri} permanent
+
+    handle /health {
+        respond "TLS Caddy Healthy" 200
+    }
+
+    # API routes
+    handle /api/* {
+        reverse_proxy {{ range service "api" }}{{ .Address }}:{{ .Port }} {{ end }} {
+            header_up X-Forwarded-Proto https
+        }
+    }
+
+    # Static assets
+    handle {
+        root * /usr/share/caddy
+        file_server
+    }
+}
+EOF</span>
+        <span class="token property">destination</span> <span class="token punctuation">=</span> <span class="token string">"local/Caddyfile"</span>
+      <span class="token punctuation">}</span>
+
+      <span class="token keyword keyword-resources">resources</span> <span class="token punctuation">{</span>
+        <span class="token property">cpu</span>    <span class="token punctuation">=</span> <span class="token number">200</span>
+        <span class="token property">memory</span> <span class="token punctuation">=</span> <span class="token number">256</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre><h2 id="5-system-caddy-for-internal-services"><strong>5. System Caddy for Internal Services</strong> </h2>
+<pre data-role="codeBlock" data-info="hcl" class="language-hcl hcl"><code><span class="token comment"># system-caddy.nomad</span>
+job <span class="token string">"system-caddy"</span> <span class="token punctuation">{</span>
+  <span class="token property">datacenters</span> <span class="token punctuation">=</span> <span class="token punctuation">[</span><span class="token string">"dc1"</span><span class="token punctuation">]</span>
+  <span class="token property">type</span> <span class="token punctuation">=</span> <span class="token string">"system"</span>  <span class="token comment"># Run on every node</span>
+
+  group <span class="token string">"caddy"</span> <span class="token punctuation">{</span>
+    <span class="token property">count</span> <span class="token punctuation">=</span> <span class="token number">1</span>  <span class="token comment"># One per node</span>
+
+    <span class="token keyword keyword-network">network</span> <span class="token punctuation">{</span>
+      port <span class="token string">"http"</span> <span class="token punctuation">{</span> 
+        <span class="token property">static</span> <span class="token punctuation">=</span> <span class="token number">80</span>
+        <span class="token property">to</span>     <span class="token punctuation">=</span> <span class="token number">80</span> 
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword keyword-service">service</span> <span class="token punctuation">{</span>
+      <span class="token property">name</span> <span class="token punctuation">=</span> <span class="token string">"node-caddy"</span>
+      <span class="token property">port</span> <span class="token punctuation">=</span> <span class="token string">"http"</span>
+      
+      <span class="token property">tags</span> <span class="token punctuation">=</span> <span class="token punctuation">[</span><span class="token string">"system"</span>, <span class="token string">"node-proxy"</span><span class="token punctuation">]</span>
+      
+      <span class="token keyword keyword-check">check</span> <span class="token punctuation">{</span>
+        <span class="token property">type</span>     <span class="token punctuation">=</span> <span class="token string">"http"</span>
+        <span class="token property">path</span>     <span class="token punctuation">=</span> <span class="token string">"/health"</span>
+        <span class="token property">interval</span> <span class="token punctuation">=</span> <span class="token string">"15s"</span>
+        <span class="token property">timeout</span>  <span class="token punctuation">=</span> <span class="token string">"3s"</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    task <span class="token string">"caddy"</span> <span class="token punctuation">{</span>
+      <span class="token property">driver</span> <span class="token punctuation">=</span> <span class="token string">"docker"</span>
+
+      <span class="token keyword keyword-config">config</span> <span class="token punctuation">{</span>
+        <span class="token property">image</span> <span class="token punctuation">=</span> <span class="token string">"caddy:2-alpine"</span>
+        <span class="token property">ports</span> <span class="token punctuation">=</span> <span class="token punctuation">[</span><span class="token string">"http"</span><span class="token punctuation">]</span>
+        
+        <span class="token property">volumes</span> <span class="token punctuation">=</span> <span class="token punctuation">[</span>
+          <span class="token string">"local/Caddyfile:/etc/caddy/Caddyfile"</span>,
+          <span class="token string">"/var/run/nomad:/var/run/nomad:ro"</span>  <span class="token comment"># Access to Nomad socket</span>
+        <span class="token punctuation">]</span>
+      <span class="token punctuation">}</span>
+
+      <span class="token keyword keyword-template">template</span> <span class="token punctuation">{</span>
+        <span class="token property">data</span> <span class="token punctuation">=</span> <span class="token heredoc string">&lt;&lt;EOF
+{
+    # Node-local configuration
+    admin off
+}
+
+:80 {
+    # Node health information
+    handle /health {
+        respond &lt;&lt;EOF
+&lt;h1&gt;Node Caddy - {{ env "attr.unique.hostname" }}&lt;/h1&gt;
+&lt;p&gt;Node: {{ env "attr.unique.hostname" }}&lt;/p&gt;
+&lt;p&gt;IP: {{ env "attr.unique.network.ip-address" }}&lt;/p&gt;
+&lt;p&gt;Allocation: {{ env "NOMAD_ALLOC_ID" }}&lt;/p&gt;
+&lt;p&gt;Status: Healthy&lt;/p&gt;
+EOF</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment"># Proxy to Nomad API (local node)</span>
+    handle /nomad<span class="token comment">/* {
+        reverse_proxy 127.0.0.1:4646 {
+            rewrite * /v1/{path}
+        }
+    }
+
+    # Proxy to Consul (local node)  
+    handle /consul/* {
+        reverse_proxy 127.0.0.1:8500 {
+            rewrite * /v1/{path}
+        }
+    }
+
+    # Services on this node
+    handle /services/* {
+        reverse_proxy {{ range service "local-services" }}{{ .Address }}:{{ .Port }} {{ end }}
+    }
+
+    # Default
+    handle {
+        respond "Node Caddy Gateway - {{ env "attr.unique.hostname" }}"
+    }
+}
+EOF
+        destination = "local/Caddyfile"
+      }
+
+      resources {
+        cpu    = 100
+        memory = 128
+      }
+    }
+  }
+}
+</span></code></pre><h2 id="6-deployment-commands"><strong>6. Deployment Commands</strong> </h2>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token comment"># Deploy Caddy jobs</span>
+nomad job run caddy.nomad
+nomad job run caddy-consul.nomad
+nomad job run caddy-tls.nomad
+
+<span class="token comment"># Check status</span>
+nomad status caddy
+nomad logs <span class="token parameter variable">-f</span> caddy
+
+<span class="token comment"># Scale Caddy</span>
+nomad job scale caddy <span class="token number">5</span>
+
+<span class="token comment"># Plan updates</span>
+nomad job plan caddy.nomad
+
+<span class="token comment"># Stop Caddy</span>
+nomad job stop caddy
+</code></pre><h2 id="7-key-nomad-features-used"><strong>7. Key Nomad Features Used</strong> </h2>
+<ul>
+<li>
+<p><strong>Service Discovery</strong>: Automatic discovery of backend services</p>
+</li>
+<li>
+<p><strong>Template Rendering</strong>: Dynamic configuration with Consul service data</p>
+</li>
+<li>
+<p><strong>Resource Management</strong>: CPU and memory allocation</p>
+</li>
+<li>
+<p><strong>Health Checking</strong>: Automatic restarts on failure</p>
+</li>
+<li>
+<p><strong>Scaling</strong>: Easy horizontal scaling</p>
+</li>
+<li>
+<p><strong>Port Management</strong>: Dynamic and static port mapping</p>
+</li>
+<li>
+<p><strong>Storage</strong>: Persistent volumes for TLS certificates</p>
+</li>
+<li>
+<p><strong>Multi-Region</strong>: Can deploy across multiple datacenters</p>
+</li>
+</ul>
+<h2 id="8-production-considerations"><strong>8. Production Considerations</strong> </h2>
+<pre data-role="codeBlock" data-info="hcl" class="language-hcl hcl"><code><span class="token comment"># Add to your job specifications for production:</span>
+
+<span class="token keyword keyword-update">update</span> <span class="token punctuation">{</span>
+  <span class="token property">stagger</span>      <span class="token punctuation">=</span> <span class="token string">"30s"</span>
+  <span class="token property">max_parallel</span> <span class="token punctuation">=</span> <span class="token number">2</span>
+  <span class="token property">health_check</span> <span class="token punctuation">=</span> <span class="token string">"checks"</span>
+  <span class="token property">min_healthy_time</span> <span class="token punctuation">=</span> <span class="token string">"10s"</span>
+  <span class="token property">healthy_deadline</span> <span class="token punctuation">=</span> <span class="token string">"5m"</span>
+  <span class="token property">auto_revert</span> <span class="token punctuation">=</span> <span class="token boolean">true</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword keyword-migrate">migrate</span> <span class="token punctuation">{</span>
+  <span class="token property">max_parallel</span> <span class="token punctuation">=</span> <span class="token number">1</span>
+  <span class="token property">health_check</span> <span class="token punctuation">=</span> <span class="token string">"checks"</span>
+  <span class="token property">min_healthy_time</span> <span class="token punctuation">=</span> <span class="token string">"10s"</span>
+  <span class="token property">healthy_deadline</span> <span class="token punctuation">=</span> <span class="token string">"8m"</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword keyword-reschedule">reschedule</span> <span class="token punctuation">{</span>
+  <span class="token property">attempts</span>       <span class="token punctuation">=</span> <span class="token number">15</span>
+  <span class="token property">interval</span>       <span class="token punctuation">=</span> <span class="token string">"1h"</span>
+  <span class="token property">delay</span>          <span class="token punctuation">=</span> <span class="token string">"30s"</span>
+  <span class="token property">delay_function</span> <span class="token punctuation">=</span> <span class="token string">"exponential"</span>
+  <span class="token property">max_delay</span>      <span class="token punctuation">=</span> <span class="token string">"1h"</span>
+  <span class="token property">unlimited</span>      <span class="token punctuation">=</span> <span class="token boolean">false</span>
+<span class="token punctuation">}</span>
+</code></pre><p>This setup gives you a highly available, scalable Caddy deployment<br>
+that integrates seamlessly with the HashiCorp ecosystem (Nomad +<br>
+Consul) for service discovery and orchestration.</p>
+
+      </div>
+      
+      
+    
+    
+    
+    
+    
+    
+  
+    </body></html>
